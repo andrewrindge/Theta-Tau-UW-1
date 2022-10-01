@@ -2,23 +2,19 @@ import { Stack } from "@chakra-ui/react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { ReactNode } from "react";
+import getNavItems, { FinalNavEntryItems } from "../lib/getNavItems";
 
-export default function Layout({ children }: { children: ReactNode }) {
+interface Props {
+    navData: FinalNavEntryItems[]
+    children: ReactNode
+}
+
+export default function Layout({ navData, children }: Props) {
     return (
         <Stack>
-            <Navbar />
+            <Navbar navData={navData} />
             {children}
             <Footer />
         </Stack>
     )
 }
-
-// const Layout = ({ children }) => {
-//     return (
-//         <div className="content">
-//             <Navbar />
-//             {children}
-//             <Footer />
-//         </div>
-//     )
-// }
