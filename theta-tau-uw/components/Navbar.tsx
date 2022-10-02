@@ -7,18 +7,19 @@ import { ChangeEvent, useState } from 'react'
 
 interface Props {
     navData: FinalNavEntryItems[]
+    index: number
 }
 
-export default function Navbar({ navData }: Props) {
+export default function Navbar({ navData, index }: Props) {
 
-    const [navBorder, setNavBorder] = useState(0)
+    const [navBorder, setNavBorder] = useState(index)
 
-    const navigationItems = navData.map((entry, index) => {
+    const navigationItems = navData.map((entry, idx) => {
         return (
             <Stack
-                key={index}
+                key={idx}
                 padding={{ md: '0px 10px', lg: '0px 15px' }}
-                border={navBorder === index ? '1px solid #EDCDE4' : ''}
+                border={navBorder === idx ? '1px solid #EDCDE4' : ''}
                 textAlign='left'
                 paddingLeft={{ base: '15px', md: '0px' }}
             >
@@ -34,8 +35,8 @@ export default function Navbar({ navData }: Props) {
                         handleEvent(event, '2')
                     }}
                     onClick={() => {
-                        if (navBorder !== index) {
-                            setNavBorder(index)
+                        if (navBorder !== idx) {
+                            setNavBorder(idx)
                         }
                     }}
                 >

@@ -7,12 +7,13 @@ import { FinalNavEntryItems } from "../lib/getNavItems";
 interface Props {
     navData: FinalNavEntryItems[]
     children: ReactNode
+    index: number
 }
 
-export default function Layout({ navData, children }: Props) {
+export default function Layout({ navData, children, index }: Props) {
     return (
         <Stack>
-            <Navbar navData={navData} />
+            <Navbar navData={navData} index={index} />
             {children}
             <Footer />
         </Stack>
