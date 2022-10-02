@@ -1,7 +1,5 @@
 import axios from "axios"
 import { CONTENTFUL_BASE_URI } from "./globals"
-import { NavItems } from "./types"
-import client from "./client"
 
 interface NavEntryResponse {
     items: NavEntryItems[]
