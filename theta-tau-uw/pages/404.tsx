@@ -6,9 +6,9 @@ import { HStack, Stack, Text } from '@chakra-ui/react';
 export default function NotFound() {
     const router = useRouter()
     useEffect(() => {
-        // setTimeout(() => {
-        //     router.push('/')
-        // }, 3000)
+        setTimeout(() => {
+            router.push('/')
+        }, 3000)
     }, [])
 
     return (

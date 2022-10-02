@@ -1,6 +1,6 @@
 import { Stack, HStack, Text, Hide, Show, Menu, MenuButton, IconButton, MenuList } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
-// import ColorModeSwitcher from './ColorModeSwitcher' 
+import ColorModeSwitcher from './ColorModeSwitcher'
 import { FinalNavEntryItems } from '../lib/getNavItems'
 import Link from 'next/link'
 import { ChangeEvent, useState } from 'react'
