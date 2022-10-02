@@ -15,7 +15,7 @@ export default function ColorModeSwitcher(data: ColorModeSwitcherProps) {
 
     return (
         <IconButton
-            size='md'
+            size='sm'
             fontSize='lg'
             variant='ghost'
             color='current'

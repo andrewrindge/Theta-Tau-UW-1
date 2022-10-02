@@ -14,7 +14,7 @@ export default function Home({ navData }: Props) {
         <Layout navData={navData}>
             <Stack>
                 <Text>
-                    home
+                    Lorem ipsum dolor sit amet.
                 </Text>
             </Stack>
         </Layout>
