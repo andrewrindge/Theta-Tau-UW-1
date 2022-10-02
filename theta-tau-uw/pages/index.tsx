@@ -9,7 +9,6 @@ interface Props {
 
 
 export default function Home({ navData }: Props) {
-    console.log(navData)
     return (
         <Layout navData={navData}>
             <Stack>
@@ -24,7 +23,7 @@ export default function Home({ navData }: Props) {
 export async function getStaticProps() {
     const navItems = await getNavItems()
     const props: Props = {
-        navData: navItems,
+        navData: navItems
     }
     return { props }
 }
