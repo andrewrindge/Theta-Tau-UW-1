@@ -1,7 +1,5 @@
 import axios from "axios"
 import { CONTENTFUL_BASE_URI } from "./globals"
-import { NavItems } from "./types"
-import client from "./client"
 
 interface NavEntryResponse {
     items: NavEntryItems[]
@@ -29,7 +27,7 @@ export default async function getNavItems(): Promise<FinalNavEntryItems[]> {
 
     const rawData = (
         await axios.get(
-            'https://cdn.contentful.com/spaces/6u84kk32236l/environments/master/entries?access_token=VskZM0_sSXmt5ev-VGUTA62HkAy7PY-0_E21Kp5fk0M&limit=10'
+            `${CONTENTFUL_BASE_URI}/spaces/${process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID}/environments/${process.env.NEXT_PUBLIC_ENVIRONMENT_KEY}/entries?access_token=${process.env.NEXT_PUBLIC_CONTENTFUL_DELIVERY_API_TOKEN}&limit=10`
         ).then((res) => res.data)
     ) as NavEntryResponse
 
