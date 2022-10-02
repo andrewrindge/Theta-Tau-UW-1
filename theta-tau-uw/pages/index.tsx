@@ -9,6 +9,7 @@ interface Props {
 
 
 export default function Home({ navData }: Props) {
+
     return (
         <Layout navData={navData}>
             <Stack>
