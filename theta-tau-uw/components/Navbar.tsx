@@ -16,35 +16,35 @@ export default function Navbar({ navData, index }: Props) {
 
     const navigationItems = navData.map((entry, idx) => {
         return (
-            <Stack
-                key={idx}
-                padding={{ md: '0px 10px', lg: '0px 15px' }}
-                border={navBorder === idx ? '1px solid #EDCDE4' : ''}
-                textAlign='left'
-                paddingLeft={{ base: '15px', md: '0px' }}
-            >
-                <Text
-                    fontWeight={700}
-                    fontSize={{ sm: '14px', md: '16px', lg: '18px' }}
-                    letterSpacing='2px'
-                    padding={{ base: '10px 0px', md: '' }}
-                    onMouseEnter={(event) => {
-                        handleEvent(event, '-2')
-                    }}
-                    onMouseLeave={(event) => {
-                        handleEvent(event, '2')
-                    }}
-                    onClick={() => {
-                        if (navBorder !== idx) {
-                            setNavBorder(idx)
-                        }
-                    }}
+            <Link href={entry.url} key={idx}>
+                <Stack
+                    key={idx}
+                    padding={{ md: '0px 10px', lg: '0px 15px' }}
+                    border={navBorder === idx ? '1px solid #EDCDE4' : ''}
+                    textAlign='left'
+                    paddingLeft={{ base: '15px', md: '0px' }}
                 >
-                    <Link href={entry.url}>
+                    <Text
+                        fontWeight={700}
+                        fontSize={{ sm: '14px', md: '16px', lg: '18px' }}
+                        letterSpacing='2px'
+                        padding={{ base: '10px 0px', md: '' }}
+                        onMouseEnter={(event) => {
+                            handleEvent(event, '-2')
+                        }}
+                        onMouseLeave={(event) => {
+                            handleEvent(event, '2')
+                        }}
+                        onClick={() => {
+                            if (navBorder !== idx) {
+                                setNavBorder(idx)
+                            }
+                        }}
+                    >
                         {entry.title.toUpperCase()}
-                    </Link>
-                </Text>
-            </Stack>
+                    </Text>
+                </Stack>
+            </Link>
         )
     })
 
