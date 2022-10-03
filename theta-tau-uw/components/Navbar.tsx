@@ -19,10 +19,18 @@ export default function Navbar({ navData, index }: Props) {
             <Link href={entry.url} key={idx}>
                 <Stack
                     key={idx}
-                    padding={{ md: '0px 10px', lg: '0px 15px' }}
-                    border={navBorder === idx ? '1px solid #EDCDE4' : ''}
-                    textAlign='left'
-                    paddingLeft={{ base: '15px', md: '0px' }}
+                    padding={{ md: '0px 12px', lg: '0px 15px' }}
+                    border={{
+                        base: navBorder === idx ? '2px solid #EDEAB5' : '',
+                        md: 'none'
+                    }}
+                    borderBottom={{
+                        base: '',
+                        md: navBorder === idx ? '3px solid #EDEAB5' : ''
+                    }}
+                    textAlign={{ base: 'left', md: 'center' }}
+                    paddingLeft={{ base: '15px', md: '15px' }}
+                    left={0}
                 >
                     <Text
                         fontWeight={700}
@@ -55,6 +63,7 @@ export default function Navbar({ navData, index }: Props) {
             backgroundColor='#8B0000'
             color='#EDEAB5'
         >
+
             <Hide below='md'>
                 <HStack height='70px' alignItems='center'>
                     {navigationItems}

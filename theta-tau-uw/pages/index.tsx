@@ -26,8 +26,7 @@ export default function Home({ navData }: Props) {
 }
 
 export async function getStaticProps() {
-    // const navItems = await getNavItems()
-    const navItems = [{ title: 'Home', url: '/' }, { title: 'About', url: '/' }, { title: 'Recruitment', url: '/' }]
+    const navItems = await getNavItems()
     const props: Props = {
         navData: navItems
     }

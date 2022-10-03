@@ -27,7 +27,7 @@ export default async function getNavItems(): Promise<FinalNavEntryItems[]> {
             url: rawData.url[index]
         }
     })
-    console.log(navData)
+
     const finalNavData = navData as FinalNavEntryItems[]
 
     if (finalNavData == null || finalNavData[0] == undefined) {
@@ -36,3 +36,12 @@ export default async function getNavItems(): Promise<FinalNavEntryItems[]> {
 
     return finalNavData
 }
+
+// export async function getNavImages(): Promise<any> {
+//     const imageData = (
+
+//     )
+//     return (
+
+//     )
+// }
