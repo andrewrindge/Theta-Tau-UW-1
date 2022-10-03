@@ -1,28 +1,21 @@
-import { Stack, HStack, Text, Hide, Show, Menu, MenuButton, IconButton, MenuList } from '@chakra-ui/react'
+import { Stack, HStack, Text, Hide, Show, Menu, MenuButton, IconButton, MenuList, Image } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import ColorModeSwitcher from './ColorModeSwitcher'
-import { FinalNavEntryItems } from '../lib/getNavItems'
+import { FinalNavEntryItems, FinalLogoProps } from '../lib/getNavItems'
 import Link from 'next/link'
 import { ChangeEvent, useState } from 'react'
-
-
-import { getNavImages } from '../lib/getNavItems'
+// import Image from 'next/image'
+// import Image from '@chakra-ui/react'
 
 interface Props {
     navData: FinalNavEntryItems[]
+    logo: FinalLogoProps
     index: number
 }
 
-export default function Navbar({ navData, index }: Props) {
+export default function Navbar({ navData, logo, index }: Props) {
 
     const [navBorder, setNavBorder] = useState(index)
-
-    const test = () => {
-        const thing = getNavImages()
-        console.log(thing)
-    }
-
-    test()
 
     const navigationItems = navData.map((entry, idx) => {
         return (
@@ -39,7 +32,7 @@ export default function Navbar({ navData, index }: Props) {
                         md: navBorder === idx ? '3px solid #EDEAB5' : ''
                     }}
                     textAlign={{ base: 'left', md: 'center' }}
-                    paddingLeft={{ base: '15px', md: '15px' }}
+                    paddingLeft={{ base: '15px', md: '8px', lg: '15px' }}
                     left={0}
                 >
                     <Text
@@ -73,7 +66,19 @@ export default function Navbar({ navData, index }: Props) {
             backgroundColor='#8B0000'
             color='#EDEAB5'
         >
+            <Stack
+                marginLeft='20px'
+                marginRight={{ md: '10px', lg: '35px' }}
+            >
+                <Image
+                    alt={logo.alt}
+                    src={logo.src}
+                    height='50px'
+                    width='50px'
 
+                    borderRadius='10px'
+                />
+            </Stack>
             <Hide below='md'>
                 <HStack height='70px' alignItems='center'>
                     {navigationItems}

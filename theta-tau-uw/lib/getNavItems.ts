@@ -61,7 +61,7 @@ export async function getNavImages(): Promise<any> {
     const finalImageData = {
         alt: imageData.alt,
         caption: imageData.caption,
-        src: imageData.image.fields.file.url
+        src: `https:${imageData.image.fields.file.url}`
     } as FinalLogoProps
 
     return finalImageData
