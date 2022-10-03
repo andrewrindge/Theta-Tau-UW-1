@@ -1,35 +1,7 @@
 import axios from "axios"
 import { CONTENTFUL_BASE_URI } from "./globals"
 import { getLogo } from './client'
-
-interface NavEntryResponse {
-    name: string
-    title: string[]
-    url: []
-}
-
-interface LogoProps {
-    alt: string
-    logo: {
-        fields: {
-            file: {
-                url: string
-            }
-        }
-    }
-}
-
-export interface FinalLogoProps {
-    alt: string
-    caption: string
-    src: string
-}
-
-
-export interface FinalNavEntryItems {
-    title: string
-    url: string
-}
+import { NavEntryResponse, FinalNavEntryItems, LogoProps, FinalLogoProps } from "./types"
 
 export default async function getNavItems(): Promise<FinalNavEntryItems[]> {
     const rawData = (

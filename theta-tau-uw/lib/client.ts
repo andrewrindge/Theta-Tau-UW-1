@@ -1,3 +1,4 @@
+import { ImageData } from './types'
 import * as contentful from 'contentful'
 
 export default function client() {
@@ -29,6 +30,35 @@ export async function getLogo() {
     }
 
     const result = await getImage()
-    console.log(result)
     return result
+}
+
+export async function getImage() {
+    const imageClient = client()
+    const getImage = async () => {
+        try {
+            const res = await imageClient
+                .getEntries({ content_type: 'image' })
+                .then((data) => {
+                    return data.items.map((entry) => {
+                        return {
+                            fields: {
+                                description: '',
+                                file: {
+                                    url: ''
+                                },
+                                title: ''
+                            }
+                        }
+                    })
+                })
+            return res as ImageData[]
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    const result = await getImage()
+    return result as ImageData[] | []
 }
