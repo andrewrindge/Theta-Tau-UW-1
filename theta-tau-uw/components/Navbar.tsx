@@ -5,6 +5,9 @@ import { FinalNavEntryItems } from '../lib/getNavItems'
 import Link from 'next/link'
 import { ChangeEvent, useState } from 'react'
 
+
+import { getNavImages } from '../lib/getNavItems'
+
 interface Props {
     navData: FinalNavEntryItems[]
     index: number
@@ -13,6 +16,13 @@ interface Props {
 export default function Navbar({ navData, index }: Props) {
 
     const [navBorder, setNavBorder] = useState(index)
+
+    const test = () => {
+        const thing = getNavImages()
+        console.log(thing)
+    }
+
+    test()
 
     const navigationItems = navData.map((entry, idx) => {
         return (

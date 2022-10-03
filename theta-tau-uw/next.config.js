@@ -6,7 +6,8 @@ const nextConfig = {
     unoptimized: true,
     dangerouslyAllowSVG: true,
     domains: [
-      'cdn.contentful.com'
+      'cdn.contentful.com',
+      'images.ctfassets.net',
     ]
   }
 }

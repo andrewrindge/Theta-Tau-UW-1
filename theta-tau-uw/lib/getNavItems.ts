@@ -1,10 +1,29 @@
 import axios from "axios"
-import { CONTENTFUL_BASE_URI } from "./globals"
+import { CONTENTFUL_BASE_URI, CONTENTFUL_MEDIA_BASE_URI } from "./globals"
+import { getImage } from './client'
 
 interface NavEntryResponse {
     name: string
     title: string[]
     url: []
+}
+
+interface LogoProps {
+    alt: string
+    caption: string
+    image: {
+        fields: {
+            file: {
+                url: string
+            }
+        }
+    }
+}
+
+export interface FinalLogoProps {
+    alt: string
+    caption: string
+    src: string
 }
 
 
@@ -14,7 +33,6 @@ export interface FinalNavEntryItems {
 }
 
 export default async function getNavItems(): Promise<FinalNavEntryItems[]> {
-
     const rawData = (
         await axios.get(
             `${CONTENTFUL_BASE_URI}/spaces/${process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID}/environments/${process.env.NEXT_PUBLIC_ENVIRONMENT_KEY}/entries/7I171AcHNo0NSDq3yKK0XW?access_token=${process.env.NEXT_PUBLIC_CONTENTFUL_DELIVERY_API_TOKEN}&limit=10`
@@ -37,11 +55,14 @@ export default async function getNavItems(): Promise<FinalNavEntryItems[]> {
     return finalNavData
 }
 
-// export async function getNavImages(): Promise<any> {
-//     const imageData = (
+export async function getNavImages(): Promise<any> {
+    const imageData = await getImage() as LogoProps
 
-//     )
-//     return (
+    const finalImageData = {
+        alt: imageData.alt,
+        caption: imageData.caption,
+        src: imageData.image.fields.file.url
+    } as FinalLogoProps
 
-//     )
-// }
+    return finalImageData
+}
