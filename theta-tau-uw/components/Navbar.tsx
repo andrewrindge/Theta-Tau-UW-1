@@ -1,11 +1,9 @@
-import { Stack, HStack, Text, Hide, Show, Menu, MenuButton, IconButton, MenuList, Image } from '@chakra-ui/react'
+import { Stack, HStack, Text, Hide, Show, Menu, MenuButton, IconButton, MenuList, Image, VStack } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import ColorModeSwitcher from './ColorModeSwitcher'
 import { FinalNavEntryItems, FinalLogoProps } from '../lib/getNavItems'
 import Link from 'next/link'
-import { ChangeEvent, useState } from 'react'
-// import Image from 'next/image'
-// import Image from '@chakra-ui/react'
+import React, { ChangeEvent, useState } from 'react'
 
 interface Props {
     navData: FinalNavEntryItems[]
@@ -16,6 +14,7 @@ interface Props {
 export default function Navbar({ navData, logo, index }: Props) {
 
     const [navBorder, setNavBorder] = useState(index)
+    const CTA = ['θT', 'THETA BETA CHAPTER']
 
     const navigationItems = navData.map((entry, idx) => {
         return (
@@ -32,12 +31,12 @@ export default function Navbar({ navData, logo, index }: Props) {
                         md: navBorder === idx ? '3px solid #EDEAB5' : ''
                     }}
                     textAlign={{ base: 'left', md: 'center' }}
-                    paddingLeft={{ base: '15px', md: '8px', lg: '15px' }}
+                    paddingLeft={{ base: '15px', md: '2px', lg: '10px', xl: '15px' }}
                     left={0}
                 >
                     <Text
                         fontWeight={700}
-                        fontSize={{ sm: '14px', md: '16px', lg: '18px' }}
+                        fontSize={{ sm: '16px', md: '13px', lg: '16px', xl: '18px' }}
                         letterSpacing='2px'
                         padding={{ base: '10px 0px', md: '' }}
                         onMouseEnter={(event) => {
@@ -67,17 +66,25 @@ export default function Navbar({ navData, logo, index }: Props) {
             color='#EDEAB5'
         >
             <Stack
-                marginLeft='20px'
-                marginRight={{ md: '10px', lg: '35px' }}
+                width={{ base: '80px', md: '50px' }}
+                marginLeft={{ base: '5px', md: '1px', lg: '20px' }}
+                marginRight={{ base: '10px', md: '18px', lg: '35px' }}
+                onMouseEnter={(event) => {
+                    handleEvent(event, '-2')
+                }}
+                onMouseLeave={(event) => {
+                    handleEvent(event, '2')
+                }}
             >
-                <Image
-                    alt={logo.alt}
-                    src={logo.src}
-                    height='50px'
-                    width='50px'
-
-                    borderRadius='10px'
-                />
+                <Link href='/'>
+                    <Image
+                        alt={logo.alt}
+                        src={logo.src}
+                        width={{ base: '100px', md: '50px' }}
+                        objectFit={{ base: 'contain', md: 'contain' }}
+                        borderRadius='10px'
+                    />
+                </Link>
             </Stack>
             <Hide below='md'>
                 <HStack height='70px' alignItems='center'>
@@ -85,7 +92,7 @@ export default function Navbar({ navData, logo, index }: Props) {
                 </HStack>
             </Hide>
             <Show below='md'>
-                <HStack>
+                <HStack justifyContent='flex-end' width='100%'>
                     <Menu>
                         <MenuButton
                             as={IconButton}
@@ -105,9 +112,31 @@ export default function Navbar({ navData, logo, index }: Props) {
                     </Menu>
                 </HStack>
             </Show>
-            {/* <Stack flex={1} alignItems='flex-end'>
-                <ColorModeSwitcher />
-            </Stack> */}
+            <Stack flex={2} alignItems='flex-end'>
+                {/* <ColorModeSwitcher /> */}
+                {(() => {
+                    return (
+                        <VStack
+                            width={{ base: '200px', md: '100px', lg: '120px', xl: '300px' }}
+                            padding={{ base: '15px', md: '10px' }}
+                        >
+                            {CTA.map((entry, index) => {
+                                return (
+                                    <Text
+                                        width='100%'
+                                        textAlign='left'
+                                        fontSize={{ base: '12px', md: '12px', lg: '16px', xl: '20px' }}
+                                        fontWeight={650}
+                                        key={index}
+                                    >
+                                        {entry.toUpperCase()}
+                                    </Text>
+                                )
+                            })}
+                        </VStack>
+                    )
+                })()}
+            </Stack >
         </HStack >
     )
 }

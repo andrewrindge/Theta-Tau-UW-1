@@ -13,12 +13,12 @@ export default function client() {
     return client()
 }
 
-export async function getImage() {
+export async function getLogo() {
     const imageClient = client()
     const getImage = async () => {
         try {
             const res = await imageClient
-                .getEntries({ content_type: 'image' })
+                .getEntries({ content_type: 'logo' })
                 .then((data) => {
                     return data.items[0]?.fields
                 })

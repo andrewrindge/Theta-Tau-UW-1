@@ -1,18 +1,20 @@
-import { Stack, Text } from '@chakra-ui/react'
-import Layout from '../components/Layout'
-import getNavItems, { FinalNavEntryItems } from "../lib/getNavItems";
+import { Stack, Text } from "@chakra-ui/react";
+import Layout from "../components/Layout";
+import getNavItems, { FinalNavEntryItems, FinalLogoProps, getNavImages } from "../lib/getNavItems";
+
 
 interface Props {
     navData: FinalNavEntryItems[]
+    logo: FinalLogoProps
 }
 
 
-export default function About({ navData }: Props) {
+export default function About({ navData, logo }: Props) {
     return (
-        <Layout navData={navData} index={1}>
+        <Layout navData={navData} logo={logo} index={1}>
             <Stack>
                 <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, quasi possimus. Aliquid, eius eveniet corrupti sed provident ducimus architecto rem!
+                    Lorem ipsum dolor sit amet.
                 </Text>
             </Stack>
         </Layout>
@@ -21,8 +23,11 @@ export default function About({ navData }: Props) {
 
 export async function getStaticProps() {
     const navItems = await getNavItems()
+    const navImage = await getNavImages()
+
     const props: Props = {
-        navData: navItems
+        navData: navItems,
+        logo: navImage
     }
     return { props }
 }

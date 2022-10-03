@@ -2,9 +2,13 @@ import {
     useColorMode,
     useColorModeValue,
     IconButton,
-    IconButtonProps
+    IconButtonProps,
+    Image,
+    Stack,
+    Button
 } from '@chakra-ui/react'
 import { FaMoon, FaSun } from 'react-icons/fa'
+import ThetaTau from '../img/ThetaTau.png'
 
 type ColorModeSwitcherProps = Omit<IconButtonProps, 'aria-label'>
 
@@ -22,6 +26,7 @@ export default function ColorModeSwitcher(data: ColorModeSwitcherProps) {
             marginLeft='2'
             onClick={toggleColorMode}
             icon={<SwitchIcon />}
+            backgroundImage={`url${ThetaTau}`}
             aria-label={`Switch to ${text} mode`}
             {...data}
         />

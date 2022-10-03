@@ -1,6 +1,6 @@
 import axios from "axios"
-import { CONTENTFUL_BASE_URI, CONTENTFUL_MEDIA_BASE_URI } from "./globals"
-import { getImage } from './client'
+import { CONTENTFUL_BASE_URI } from "./globals"
+import { getLogo } from './client'
 
 interface NavEntryResponse {
     name: string
@@ -10,8 +10,7 @@ interface NavEntryResponse {
 
 interface LogoProps {
     alt: string
-    caption: string
-    image: {
+    logo: {
         fields: {
             file: {
                 url: string
@@ -56,12 +55,11 @@ export default async function getNavItems(): Promise<FinalNavEntryItems[]> {
 }
 
 export async function getNavImages(): Promise<any> {
-    const imageData = await getImage() as LogoProps
+    const imageData = await getLogo() as LogoProps
 
     const finalImageData = {
         alt: imageData.alt,
-        caption: imageData.caption,
-        src: `https:${imageData.image.fields.file.url}`
+        src: `https:${imageData.logo.fields.file.url}`
     } as FinalLogoProps
 
     return finalImageData
