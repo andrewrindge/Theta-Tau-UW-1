@@ -1,13 +1,18 @@
 import { Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import getContentSlider from "../../lib/getContentSlider";
-import { FinalContentSlider } from "../../lib/types";
-import getNavItems from "../../lib/getNavItems";
+import { ButtonData, ContentSliderData } from "../../lib/types";
 
-export default function ContentSlider() {
-    const res = getContentSlider('2Dqg7Ug8vRdmWR1IeJhTAu')
-    console.log(res.then((res) => res))
+interface Props {
+    data: ContentSliderData
+}
 
+export default function ContentSlider({ data }: Props) {
+    const test = async () => {
+        const data = await getContentSlider('2Dqg7Ug8vRdmWR1IeJhTAu')
+        console.log(data)
+    }
+    test()
     const [counter, setCounter] = useState<number>(0)
 
     // const next = () => {
@@ -22,7 +27,19 @@ export default function ContentSlider() {
     return (
         <Stack>
             <Text>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate excepturi aut quis animi similique omnis nesciunt assumenda sunt eaque? Harum.
+                {data.articleLength !== 0 && (
+
+                    data.articleLength
+                )}
+                {data.data.map((entry, index) => {
+                    return (
+                        <Stack key={index}>
+                            <Text>
+
+                            </Text>
+                        </Stack>
+                    )
+                })}
             </Text>
         </Stack>
     )

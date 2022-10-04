@@ -33,7 +33,7 @@ export async function getLogo() {
     return result
 }
 
-export async function getImage() {
+export async function getImage(): Promise<ImageData[] | []> {
     const imageClient = client()
     const getImage = async () => {
         try {

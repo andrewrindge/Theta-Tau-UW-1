@@ -11,26 +11,29 @@ export interface NavItems {
     }
 }
 
-export interface FinalContentSlider {
-    backgroundImage: Promise<[] | ImageData[]>
+export interface ContentSliderData {
     data: {
-        buttonData: Promise<Promise<ButtonData>[]>
-        text: Promise<{
+        backgroundImage: ImageData
+        buttonData: {
+            link: string
+            text: string
+        }[]
+        text: {
             content: {
-                nodeType: NodeType;
-                values: string;
-            }[][];
-            data: string | {} | null | undefined;
-            nodeType: NodeType[];
-            document: NodeType;
-        }>
-        title: Promise<string>
-    }
-    length: number
+                nodeType: NodeType
+                values: string
+            }[][]
+            data: string | {} | null | undefined
+            nodeType: NodeType[]
+            document: NodeType
+        };
+        title: string
+    }[]
+    articleLength: number
 }
 
 export interface BannerArticleData {
-    button: Promise<ButtonData>[]
+    button: ButtonData[]
     richTextDescription: {
         content: {
             nodeType: NodeType
@@ -44,15 +47,8 @@ export interface BannerArticleData {
 }
 
 export interface ButtonData {
-    text: string
+    title: string
     link: string
-}
-
-export interface FinalButtonData {
-    data: {
-        text: string
-        link: string
-    }
 }
 
 export interface BannerItems {
@@ -119,7 +115,7 @@ export interface FinalNavEntryItems {
     url: string
 }
 
-export interface ContentSlider {
+export interface ContentSliderResponse {
     title: string
     bannerItems: {
         sys: {
