@@ -8,6 +8,17 @@ import getButtonData from "../lib/getButtonData";
 import { useEffect, useState } from "react";
 import getTest from "../lib/getTest";
 
+/**
+ * @TODO
+ * getContentSlider: results and string[] of @BannerArticleIDs
+ * getBannerArticle: results and string[] of @ButtonIDs
+ * getButtons: results
+ * 
+ * getContentSlider()
+ * getBannerArticle(articleIDs: string[])
+ * getButtons(buttonIDs: string[])
+ * 
+ */
 
 interface Props {
     navData: FinalNavEntryItems[]
