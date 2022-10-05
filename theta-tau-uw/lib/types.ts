@@ -11,6 +11,13 @@ export interface NavItems {
     }
 }
 
+export interface Test {
+    data: {
+        backgroundImage: ImageData | []
+        fields: BannerArticleData[]
+    }
+}
+
 export interface ContentSliderData {
     data: {
         backgroundImage: ImageData

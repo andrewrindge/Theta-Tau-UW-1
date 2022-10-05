@@ -1,8 +1,8 @@
 import axios from "axios"
-import { getImage } from "./client"
-import getBannerArticle from "./getBannerArticle"
 import { CONTENTFUL_BASE_URI } from "./globals"
-import { BannerArticleData, ContentSliderResponse, ContentSliderData, Test } from "./types"
+import getBannerArticle from "./getBannerArticle"
+import { ContentSliderResponse, } from "./types"
+import { getImage } from "./client"
 
 export default async function getContentSlider(url: string): Promise<ContentSliderResponse> {
 
@@ -12,5 +12,5 @@ export default async function getContentSlider(url: string): Promise<ContentSlid
         ).then(res => res.data)
     )?.fields as ContentSliderResponse
 
-    return rawData
+    return rawData as ContentSliderResponse
 }
