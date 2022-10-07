@@ -41,6 +41,7 @@ export interface ContentSliderData {
 
 export interface BannerArticleData {
     button: ButtonData[]
+    backgroundImage: ImageResponse[] | []
     richTextDescription: {
         content: {
             nodeType: NodeType
@@ -50,7 +51,8 @@ export interface BannerArticleData {
         nodeType: NodeType[]
         document: NodeType
     }
-    title: string
+    title: string,
+    description: any
 }
 
 export interface ButtonData {
@@ -65,19 +67,7 @@ export interface BannerItems {
     button: {
         sys: SysFields
     }[]
-    description: {
-        content: {
-            content: {
-                nodeType: NodeType
-                values: string
-            }[]
-            data: string | null | {} | undefined
-            nodeType: NodeType
-        }[]
-        data: {
-            nodeType: NodeType
-        }
-    }
+    description: any
     title: string
 }
 
@@ -141,4 +131,28 @@ export interface ImageData {
         }
         title: string
     }
+}
+
+export interface ContentfulImageResponse {
+    items: {
+        fields: {
+            alt: string
+            image: {
+                fields: {
+                    title: string
+                    description: string
+                    file: {
+                        url: string
+                    }
+                }
+            }
+        }
+    }[]
+}
+
+export interface ImageResponse {
+    alt: string
+    src: string
+    caption: string
+    title: string
 }

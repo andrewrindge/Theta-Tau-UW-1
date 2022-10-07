@@ -2,6 +2,7 @@ import axios from "axios"
 import { CONTENTFUL_BASE_URI } from "./globals"
 import { BannerItems, ButtonData, BannerArticleData } from "./types"
 import getButtonData from "./getButtonData"
+import { getImage } from "./client"
 
 export default async function getBannerArticle(contentURL: string): Promise<BannerArticleData> {
     const rawData = (
@@ -19,15 +20,13 @@ export default async function getBannerArticle(contentURL: string): Promise<Bann
         })
     }
 
+    const images = await getImage()
+
     const fields = {
         button: buttons,
-        richTextDescription: {
-            content: rawData.description.content.map(entry => entry.content),
-            data: rawData.description.content.map(entry => entry.data),
-            nodeType: rawData.description.content.map(entry => entry.nodeType),
-            document: rawData.description.data.nodeType
-        },
-        title: rawData.title
+        backgroundImage: images,
+        title: rawData.title,
+        description: rawData.description
     } as BannerArticleData
 
     return fields

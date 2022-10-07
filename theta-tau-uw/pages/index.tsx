@@ -1,14 +1,9 @@
 import { Stack, Text } from "@chakra-ui/react";
 import Layout from "../components/Layout";
 import getNavItems, { getNavImages } from "../lib/getNavItems";
-import { BannerArticleData, ButtonData, ContentSliderData, ContentSliderResponse, FinalLogoProps, FinalNavEntryItems, Test } from "../lib/types";
+import { ContentSliderResponse, FinalLogoProps, FinalNavEntryItems } from "../lib/types";
 import ContentSlider from '../components/content/ContentSlider'
 import getContentSlider from "../lib/getContentSlider";
-import getButtonData from "../lib/getButtonData";
-import { useEffect, useState } from "react";
-import getTest from "../lib/getTest";
-import testGetContentSlider from "../lib/testGetContentSlider";
-import getBannerArticle from "../lib/getBannerArticle";
 
 /**
  * @TODO
@@ -29,15 +24,12 @@ interface Props {
 }
 
 export default function Home({ navData, logo, contentSliderData }: Props) {
-    console.log(contentSliderData)
     return (
         <Layout navData={navData} logo={logo} index={0}>
-            <Stack>
-                <Text>
-                </Text>
-                <ContentSlider props={contentSliderData} />
+            <Stack height='100vh'>
+                <ContentSlider data={contentSliderData} />
             </Stack>
-        </Layout>
+        </Layout >
     )
 }
 

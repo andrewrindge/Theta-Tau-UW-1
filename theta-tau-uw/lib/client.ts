@@ -1,4 +1,4 @@
-import { ImageData } from './types'
+import { ContentfulImageResponse, ImageData, ImageResponse } from './types'
 import * as contentful from 'contentful'
 
 export default function client() {
@@ -33,32 +33,31 @@ export async function getLogo() {
     return result
 }
 
-export async function getImage(): Promise<ImageData[] | []> {
+export async function getImage(): Promise<ImageResponse[] | []> {
     const imageClient = client()
     const getImage = async () => {
         try {
-            const res = await imageClient
-                .getEntries({ content_type: 'image' })
-                .then((data) => {
-                    return data.items.map((entry) => {
-                        return {
-                            fields: {
-                                description: '',
-                                file: {
-                                    url: ''
-                                },
-                                title: ''
-                            }
-                        }
-                    })
+            const res = await imageClient.getEntries({
+                content_type: 'image'
+            }).then((data) => {
+                const transfromedData = data as unknown as ContentfulImageResponse
+                return transfromedData.items.map((entry) => {
+                    return {
+                        alt: entry.fields.alt,
+                        src: entry.fields.image.fields.file.url,
+                        caption: entry.fields.image.fields.description,
+                        title: entry.fields.image.fields.title
+                    }
                 })
-            return res as ImageData[]
+            })
+            return res as ImageResponse[]
         } catch (error) {
             console.log(error)
         }
     }
 
 
+
     const result = await getImage()
-    return result as ImageData[] | []
+    return result as ImageResponse[] | []
 }
