@@ -17,7 +17,7 @@ export default function Layout({ navData, logo, children, index }: Props) {
         <Stack>
             <Navbar navData={navData} logo={logo} index={index} />
             {children}
-            <Footer />
+            <Footer navData={navData} logo={logo} />
         </Stack>
     )
 }
