@@ -1,5 +1,4 @@
 import { HStack, Stack, Text, VStack, Image, IconButton } from "@chakra-ui/react";
-// import Image from "next/image";
 import Link from "next/link";
 import { FinalLogoProps, FinalNavEntryItems } from "../lib/types";
 import MarginStack from "./MarginStack";
@@ -12,14 +11,15 @@ interface Props {
 }
 
 export default function Footer({ navData, logo }: Props) {
+    console.log(logo)
     return (
         <VStack backgroundColor='#DDD'>
             <MarginStack>
                 <HStack justifyContent='space-between' width='100%'>
                     <HStack>
                         <Image
-                            src={'https://upload.wikimedia.org/wikipedia/en/d/d7/ThetaTau.png'}
-                            alt='Hand holding hammer and tongs'
+                            src={'https://upload.wikimedia.org/wikipedia/en/d/d7/ThetaTau.png'} // logo.src
+                            alt={logo.alt}
                             width='120px'
                             height='210px'
                             objectFit='cover'

@@ -18,11 +18,11 @@ export async function getLogo() {
     const imageClient = client()
     const getImage = async () => {
         try {
-            const res = await imageClient
-                .getEntries({ content_type: 'logo' })
-                .then((data) => {
-                    return data.items[0]?.fields
-                })
+            const res = await imageClient.getEntries({
+                content_type: 'logo'
+            }).then((data) => {
+                return data.items[0]?.fields
+            })
             return res
         } catch (error) {
             console.log(error)
@@ -60,4 +60,24 @@ export async function getImage(): Promise<ImageResponse[] | []> {
 
     const result = await getImage()
     return result as ImageResponse[] | []
+}
+
+export async function getFooterLogo() {
+    const footerLogoClient = client()
+    const getFooterLogo = async () => {
+        try {
+            const res = await footerLogoClient.getEntries({
+                content_type: 'footerLogo'
+            }).then((data) => {
+                return data.items[0]?.fields
+            })
+            return res
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const footerLogo = await getFooterLogo()
+    console.log(footerLogo)
+    return footerLogo
 }
