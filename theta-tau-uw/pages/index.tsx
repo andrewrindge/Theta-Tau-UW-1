@@ -5,18 +5,6 @@ import { ContentSliderResponse, FinalLogoProps, FinalNavEntryItems } from "../li
 import ContentSlider from '../components/content/ContentSlider'
 import getContentSlider from "../lib/getContentSlider";
 
-/**
- * @TODO
- * getContentSlider: results and string[] of @BannerArticleIDs
- * getBannerArticle: results and string[] of @ButtonIDs
- * getButtons: results
- * 
- * getContentSlider()
- * getBannerArticle(articleIDs: string[])
- * getButtons(buttonIDs: string[])
- * 
- */
-
 interface Props {
     navData: FinalNavEntryItems[]
     logo: FinalLogoProps

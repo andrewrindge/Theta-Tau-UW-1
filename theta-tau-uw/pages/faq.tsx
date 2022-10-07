@@ -1,6 +1,7 @@
 import { Stack, Text } from "@chakra-ui/react";
 import Layout from "../components/Layout";
-import getNavItems, { FinalNavEntryItems, FinalLogoProps, getNavImages } from "../lib/getNavItems";
+import getNavItems, { getNavImages } from "../lib/getNavItems";
+import { FinalNavEntryItems, FinalLogoProps } from '../lib/types'
 
 
 interface Props {
