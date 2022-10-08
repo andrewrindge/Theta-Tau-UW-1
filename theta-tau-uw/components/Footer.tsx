@@ -1,45 +1,59 @@
-import { HStack, Stack, Text, VStack, Image, IconButton } from "@chakra-ui/react";
+import { HStack, Stack, Text, VStack, IconButton, Hide, Show } from "@chakra-ui/react";
+import Image from 'next/image'
 import Link from "next/link";
-import { FinalLogoProps, FinalNavEntryItems } from "../lib/types";
+import { FinalLogoProps, FinalNavEntryItems, SocialMediaLinks } from "../lib/types";
 import MarginStack from "./MarginStack";
 import { FaInstagramSquare, FaFacebookSquare } from 'react-icons/fa'
 import { GrMail } from 'react-icons/gr'
+import React from "react";
 
 interface Props {
     navData: FinalNavEntryItems[]
     logo: FinalLogoProps
+    socialMediaLinks: SocialMediaLinks[]
 }
 
-export default function Footer({ navData, logo }: Props) {
-    console.log(logo)
+export default function Footer({ navData, logo, socialMediaLinks }: Props) {
+    const year = new Date().getFullYear()
+
+    let footerTitle = <Stack
+        direction={{ base: 'row', sm: 'column', md: 'row' }}
+        marginLeft={{ sm: '0px', md: '-25px' }}
+    >
+        <Stack width={{ base: '100px', md: '100px', lg: '150px', xl: '200px' }}>
+            <Image
+                src={logo.src} // logo.src
+                alt={logo.alt}
+                width={1}
+                height={1}
+                layout='responsive'
+                objectFit='contain'
+            />
+        </Stack>
+        <VStack
+            fontSize={{ base: '10px', sm: '14px', md: '16px', lg: '20px', xl: '22px' }}
+            fontWeight={750}
+            fontStyle='italic'
+            justifyContent='center'
+        >
+            <Text textAlign={{ base: 'center', md: 'left' }} width='100%'>
+                THETA TAU
+            </Text>
+            <Text textAlign={{ base: 'center', md: 'left' }} width='100%'>
+                THETA BETA CHAPTER
+            </Text>
+        </VStack>
+    </Stack>
+
     return (
         <VStack backgroundColor='#DDD'>
             <MarginStack>
                 <HStack justifyContent='space-between' width='100%'>
-                    <HStack>
-                        <Image
-                            src={'https://upload.wikimedia.org/wikipedia/en/d/d7/ThetaTau.png'} // logo.src
-                            alt={logo.alt}
-                            width='120px'
-                            height='210px'
-                            objectFit='cover'
-                        />
-                        <VStack
-                            fontSize='22px'
-                            fontWeight={750}
-                            fontStyle='italic'
-                            textAlign='left'
-                        >
-                            <Text>
-                                THETA TAU
-                            </Text>
-                            <Text>
-                                THETA BETA CHAPTER
-                            </Text>
-                        </VStack>
-                    </HStack>
-                    <VStack>
-                        <Text fontWeight={800}>
+                    <Hide below='sm'>
+                        {footerTitle}
+                    </Hide>
+                    <VStack width={{ lg: '40%', xl: '50%' }} alignItems='flex-start'>
+                        <Text fontWeight={800} fontSize={{ base: '13px', sm: '15px' }}>
                             Site Map
                         </Text>
                         {navData.map((entry, index) => {
@@ -54,6 +68,7 @@ export default function Footer({ navData, logo }: Props) {
                                             transition: '0.3s',
                                             padding: '1px'
                                         }}
+                                        fontSize={{ base: '12px', sm: '16px' }}
                                         padding='2px'
                                     >
                                         {entry.title}
@@ -62,57 +77,60 @@ export default function Footer({ navData, logo }: Props) {
                             )
                         })}
                     </VStack>
-                    <VStack>
+                    <VStack justifyContent='flex-start' height={{ base: '200px', sm: '235px' }}>
                         <Text
-                            fontSize='22px'
+                            fontSize={{ base: '13px', sm: '14px', md: '16px', lg: '20px', xl: '22px' }}
                             fontWeight={750}
                             fontStyle='italic'
                         >
                             STAY CONNECTED
                         </Text>
                         <HStack>
-                            <Stack padding='10px'>
-                                <a
-                                    href='https://www.instagram.com/uwthetatau/?hl=en'
-                                    target='_blank'
-                                    rel='noopener noreferrer'
-                                >
-                                    <IconButton
-                                        icon={<FaInstagramSquare size='md' color='#000' />}
-                                        aria-label='Go to Theta Tau Instagram'
-                                        backgroundColor='#DDD'
-                                        objectFit='cover'
-                                    />
-                                </a>
-                            </Stack>
-                            <Stack padding='10px'>
-                                <a
-                                    href='https://www.facebook.com/thetatauuw/'
-                                    target='_blank'
-                                    rel='noopener noreferrer'
-                                >
-                                    <IconButton
-                                        icon={<FaFacebookSquare size='md' color='#000' />}
-                                        aria-label='Go to Theta Tau Facebook'
-                                        backgroundColor='#DDD'
-                                    />
-                                </a>
-                            </Stack>
-                            <Stack padding='10px'>
-                                <a href="mailto: thetatauthetabeta@gmail.com">
-                                    <IconButton
-                                        icon={<GrMail size='md' color='#000' />}
-                                        aria-label='Send Theta Tau an Email'
-                                        backgroundColor='#DDD'
-                                    />
-                                </a>
-                            </Stack>
+                            {socialMediaLinks.map((entry, index) => {
+                                const Icon: JSX.Element = (() => {
+                                    switch (entry.type) {
+                                        case 'facebook':
+                                            return <FaFacebookSquare size='30px' />
+                                        case 'instagram':
+                                            return <FaInstagramSquare size='30px' />
+                                        case 'mail':
+                                            return <GrMail size='30px' />
+                                        default:
+                                            return <React.Fragment></React.Fragment>
+                                    }
+                                })()
+
+                                return (
+                                    <Stack padding='10px' key={index}>
+                                        <a
+                                            href={entry.type === 'mail' ? `mailto: ${entry.url}` : entry.url}
+                                            target='_blank'
+                                            rel='noopener noreferrer'
+                                        >
+                                            <IconButton
+                                                icon={Icon}
+                                                aria-label='Go to Theta Tau'
+                                                backgroundColor='#DDD'
+                                                objectFit='cover'
+                                                height='30px'
+                                                width='30px'
+                                            >
+
+                                            </IconButton>
+
+                                        </a>
+                                    </Stack>
+                                )
+                            })}
                         </HStack>
+                        <Show below='sm'>
+                            {footerTitle}
+                        </Show>
                     </VStack>
                 </HStack>
             </MarginStack>
             <Text width='100%' backgroundColor='#CCC' textAlign='center' padding='5px'>
-                University of Washington | &copy; 2022 Theta Tau Theta Beta Chapter
+                University of Washington | &copy; {year} Theta Tau Theta Beta Chapter
             </Text>
         </VStack>
     )

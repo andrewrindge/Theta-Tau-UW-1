@@ -1,20 +1,21 @@
 import { Stack, Text } from "@chakra-ui/react";
 import Layout from "../components/Layout";
-import { FinalNavEntryItems, FinalLogoProps, ContentSliderResponse } from "../lib/types";
+import { FinalNavEntryItems, FinalLogoProps, ContentSliderResponse, SocialMediaLinks } from "../lib/types";
 import getNavItems, { getNavImages } from '../lib/getNavItems'
 import { getFooterImages } from "../lib/getFooterItems";
-
+import getSocialMediaLinks from "../lib/getSocialMediaLinks";
 
 interface Props {
     navData: FinalNavEntryItems[]
     logo: FinalLogoProps
     footerLogo: FinalLogoProps
+    socialMediaLinks: SocialMediaLinks[]
 }
 
 
-export default function About({ navData, logo, footerLogo }: Props) {
+export default function About({ navData, logo, footerLogo, socialMediaLinks }: Props) {
     return (
-        <Layout navData={navData} logo={logo} footerLogo={footerLogo} index={1}>
+        <Layout navData={navData} logo={logo} footerLogo={footerLogo} socialMediaLinks={socialMediaLinks} index={1}>
             <Stack>
                 <Text>
                     Lorem ipsum dolor sit amet.
@@ -28,11 +29,13 @@ export async function getStaticProps() {
     const navItems = await getNavItems()
     const navImage = await getNavImages()
     const footerLogo = await getFooterImages()
+    const socialMediaLinks = await getSocialMediaLinks()
 
     const props: Props = {
         navData: navItems,
         logo: navImage,
         footerLogo: footerLogo,
+        socialMediaLinks: socialMediaLinks
     }
     return { props }
 }

@@ -100,6 +100,11 @@ export interface LogoProps {
     }
 }
 
+export interface FooterLogoProps {
+    alt: string
+    src: string
+}
+
 export interface FinalLogoProps {
     alt: string
     caption: string
@@ -155,4 +160,9 @@ export interface ImageResponse {
     src: string
     caption: string
     title: string
+}
+
+export interface SocialMediaLinks {
+    type: string
+    url: string
 }

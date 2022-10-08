@@ -91,6 +91,31 @@ export default function Navbar({ navData, logo, index }: Props) {
                     {navigationItems}
                 </HStack>
             </Hide>
+            <Stack flex={2} alignItems='flex-end'>
+                {/* <ColorModeSwitcher /> */}
+                {(() => {
+                    return (
+                        <VStack
+                            width={{ base: '200px', md: '100px', lg: '120px', xl: '300px' }}
+                            padding={{ base: '15px', md: '10px' }}
+                        >
+                            {CTA.map((entry, index) => {
+                                return (
+                                    <Text
+                                        width='100%'
+                                        textAlign='left'
+                                        fontSize={{ base: '14px', md: '12px', lg: '16px', xl: '20px' }}
+                                        fontWeight={650}
+                                        key={index}
+                                    >
+                                        {entry.toUpperCase()}
+                                    </Text>
+                                )
+                            })}
+                        </VStack>
+                    )
+                })()}
+            </Stack >
             <Show below='md'>
                 <HStack justifyContent='flex-end' width='100%'>
                     <Menu>
@@ -112,32 +137,7 @@ export default function Navbar({ navData, logo, index }: Props) {
                     </Menu>
                 </HStack>
             </Show>
-            <Stack flex={2} alignItems='flex-end'>
-                {/* <ColorModeSwitcher /> */}
-                {(() => {
-                    return (
-                        <VStack
-                            width={{ base: '200px', md: '100px', lg: '120px', xl: '300px' }}
-                            padding={{ base: '15px', md: '10px' }}
-                        >
-                            {CTA.map((entry, index) => {
-                                return (
-                                    <Text
-                                        width='100%'
-                                        textAlign='left'
-                                        fontSize={{ base: '12px', md: '12px', lg: '16px', xl: '20px' }}
-                                        fontWeight={650}
-                                        key={index}
-                                    >
-                                        {entry.toUpperCase()}
-                                    </Text>
-                                )
-                            })}
-                        </VStack>
-                    )
-                })()}
-            </Stack >
-        </HStack >
+        </HStack>
     )
 }
 
