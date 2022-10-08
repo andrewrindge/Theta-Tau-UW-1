@@ -5,6 +5,7 @@ export default function MarginStack({ children }: { children: React.ReactNode })
         <Stack
             padding={{ base: '20px', md: '35px' }}
             alignItems={'center'}
+            width='100%'
             justifyContent={{ base: 'center', md: 'space-evenly' }}
             direction={{ base: 'column', md: 'row' }}
         >

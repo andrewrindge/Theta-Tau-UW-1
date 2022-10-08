@@ -1,18 +1,18 @@
 import { Stack, Text } from "@chakra-ui/react";
 import Layout from "../components/Layout";
+import { getFooterImages } from "../lib/getFooterItems";
 import getNavItems, { getNavImages } from "../lib/getNavItems";
 import { FinalNavEntryItems, FinalLogoProps } from '../lib/types'
-
 
 interface Props {
     navData: FinalNavEntryItems[]
     logo: FinalLogoProps
+    footerLogo: FinalLogoProps
 }
 
-
-export default function Recruitment({ navData, logo }: Props) {
+export default function Recruitment({ navData, logo, footerLogo }: Props) {
     return (
-        <Layout navData={navData} logo={logo} index={2}>
+        <Layout navData={navData} logo={logo} footerLogo={footerLogo} index={2}>
             <Stack>
                 <Text>
                     Lorem ipsum dolor sit amet.
@@ -25,10 +25,13 @@ export default function Recruitment({ navData, logo }: Props) {
 export async function getStaticProps() {
     const navItems = await getNavItems()
     const navImage = await getNavImages()
+    const footerLogo = await getFooterImages()
 
     const props: Props = {
         navData: navItems,
-        logo: navImage
+        logo: navImage,
+        footerLogo: footerLogo,
     }
+
     return { props }
 }

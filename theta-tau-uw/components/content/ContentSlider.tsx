@@ -2,7 +2,8 @@ import { HStack, Stack, Text, IconButton, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import getBannerArticle from "../../lib/getBannerArticle";
 import { BannerArticleData, ButtonData, ContentSliderResponse } from "../../lib/types";
-import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
+import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+// import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 
 interface Props {
@@ -69,7 +70,7 @@ export default function ContentSlider({ data }: Props) {
         >
             <Stack padding='25px'>
                 <IconButton
-                    as={FaArrowAltCircleLeft}
+                    as={ArrowBackIcon}
                     aria-label={`go back to image ${index}`}
                     onClick={() => previous()}
                 />
@@ -117,8 +118,9 @@ export default function ContentSlider({ data }: Props) {
             </HStack>
             <Stack padding='25px'>
                 <IconButton
-                    as={FaArrowAltCircleRight}
+                    as={ArrowForwardIcon}
                     aria-label={`go nexy to image ${index}`}
+
                     onClick={() => next()}
                 />
             </Stack>

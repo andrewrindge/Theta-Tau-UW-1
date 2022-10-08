@@ -8,16 +8,17 @@ import { FinalNavEntryItems, FinalLogoProps } from "../lib/types";
 interface Props {
     navData: FinalNavEntryItems[]
     logo: FinalLogoProps
+    footerLogo: FinalLogoProps
     children: ReactNode
     index: number
 }
 
-export default function Layout({ navData, logo, children, index }: Props) {
+export default function Layout({ navData, logo, footerLogo, children, index }: Props) {
     return (
         <Stack>
             <Navbar navData={navData} logo={logo} index={index} />
             {children}
-            <Footer />
+            <Footer navData={navData} logo={footerLogo} />
         </Stack>
     )
 }
