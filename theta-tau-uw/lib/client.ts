@@ -1,4 +1,4 @@
-import { ContentfulImageResponse, ImageData, ImageResponse } from './types'
+import { ContentfulImageResponse, FinalLogoProps, FooterLogoProps, ImageData, ImageResponse } from './types'
 import * as contentful from 'contentful'
 
 export default function client() {
@@ -78,6 +78,5 @@ export async function getFooterLogo() {
     }
 
     const footerLogo = await getFooterLogo()
-    console.log(footerLogo)
     return footerLogo
 }

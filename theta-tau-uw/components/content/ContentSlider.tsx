@@ -66,11 +66,11 @@ export default function ContentSlider({ data }: Props) {
             backgroundSize='100%'
             backgroundRepeat='no-repeat'
             backgroundPosition='center'
-            height='75vh'
+            height={{ base: '35vh', sm: '36vh', md: '55vh', lg: '65vh', xl: '75vh' }}
         >
             <Stack padding='25px'>
                 <IconButton
-                    as={ArrowBackIcon}
+                    icon={<ArrowBackIcon />}
                     aria-label={`go back to image ${index}`}
                     onClick={() => previous()}
                 />
@@ -85,8 +85,8 @@ export default function ContentSlider({ data }: Props) {
                 <Stack
                     zIndex={100}
                     borderRadius='10px'
-                    width='50%'
-                    height='50%'
+                    width={{ base: '100%', md: '70%', lg: '65%', xl: '50%' }}
+                    height={{ base: '70%', sm: '80%', md: '65%', lg: '50%' }}
                     backdropFilter='auto'
                     backdropBlur='10px'
                     backdropBrightness='30%'
@@ -94,10 +94,19 @@ export default function ContentSlider({ data }: Props) {
                     justifyContent='space-around'
                 >
                     <Stack>
-                        <Text fontWeight={800} fontSize='40px'>{title}</Text>
-                        <Text dangerouslySetInnerHTML={{ __html: text }} />
+                        <Text
+                            fontWeight={800}
+                            fontSize={{ base: '16px', sm: '18px', md: '28px', lg: '36px', xl: '40px' }}
+                        >
+                            {title}
+                        </Text>
+                        <Text
+                            fontSize={{ base: '14px', sm: '14px', md: '16px', lg: '18px' }}
+                            dangerouslySetInnerHTML={{ __html: text }}
+                            noOfLines={[5, 5, 6, 5, 4, 5]}
+                        />
                     </Stack>
-                    <HStack key={index} justifyContent='flex-end' width='100%'>
+                    <HStack key={index} justifyContent={{ base: 'center', md: 'flex-end' }} width='100%'>
                         {buttons.map((entry, index) => {
                             return (
                                 <Button
@@ -107,6 +116,9 @@ export default function ContentSlider({ data }: Props) {
                                     }}
                                     maxWidth='250px'
                                     backgroundColor='#8B0000'
+                                    width={{ base: '130px', sm: '130px', md: '150px', lg: '165px' }}
+                                    height={{ base: '35px', sm: '35px', md: '40px', lg: '45px' }}
+                                    fontSize={{ base: '14px', sm: '14px', md: '16px', lg: '18px' }}
                                 >
                                     {entry.title}
                                 </Button>
@@ -118,9 +130,8 @@ export default function ContentSlider({ data }: Props) {
             </HStack>
             <Stack padding='25px'>
                 <IconButton
-                    as={ArrowForwardIcon}
+                    icon={<ArrowForwardIcon />}
                     aria-label={`go nexy to image ${index}`}
-
                     onClick={() => next()}
                 />
             </Stack>
