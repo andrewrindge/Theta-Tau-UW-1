@@ -166,3 +166,9 @@ export interface SocialMediaLinks {
     type: string
     url: string
 }
+
+export interface ContainerProps {
+    children: React.ReactNode
+    padding?: string
+    p?: string
+}

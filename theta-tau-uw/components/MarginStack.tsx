@@ -1,14 +1,11 @@
-import { Stack } from '@chakra-ui/react'
+import { Stack } from "@chakra-ui/react"
+import { ContainerProps } from '../lib/types'
 
-export default function MarginStack({ children }: { children: React.ReactNode }) {
+export default function Container({ children, padding, p }: ContainerProps) {
+    const everything = padding ? padding : (p ? p : '0px 20px')
+
     return (
-        <Stack
-            padding={{ base: '20px', md: '35px' }}
-            alignItems={'center'}
-            width='100%'
-            justifyContent={{ base: 'center', md: 'space-evenly' }}
-            direction={{ base: 'column', md: 'row' }}
-        >
+        <Stack padding={everything}>
             {children}
         </Stack>
     )

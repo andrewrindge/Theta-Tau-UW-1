@@ -16,7 +16,7 @@ interface Props {
 
 export default function Layout({ navData, logo, footerLogo, children, index, socialMediaLinks }: Props) {
     return (
-        <Stack>
+        <Stack fontFamily='Avenir Next, Helvetica, Arial'>
             <Navbar navData={navData} logo={logo} index={index} />
             {children}
             <Footer navData={navData} logo={footerLogo} socialMediaLinks={socialMediaLinks} />

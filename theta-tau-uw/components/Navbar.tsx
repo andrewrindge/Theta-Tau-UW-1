@@ -1,9 +1,11 @@
-import { Stack, HStack, Text, Hide, Show, Menu, MenuButton, IconButton, MenuList, Image, VStack } from '@chakra-ui/react'
-import { HamburgerIcon } from '@chakra-ui/icons'
-import ColorModeSwitcher from './ColorModeSwitcher'
+import { Stack, HStack, Text, Hide, Show, Menu, MenuButton, IconButton, MenuList, Image, VStack, MenuItem } from '@chakra-ui/react'
+import { GiHamburgerMenu } from 'react-icons/gi'
+import { CgProfile } from 'react-icons/cg'
 import { FinalNavEntryItems, FinalLogoProps } from '../lib/types'
 import Link from 'next/link'
 import React, { ChangeEvent, useState } from 'react'
+import MarginStack from './MarginStack'
+import { useRouter } from 'next/router'
 
 interface Props {
     navData: FinalNavEntryItems[]
@@ -13,146 +15,205 @@ interface Props {
 
 export default function Navbar({ navData, logo, index }: Props) {
 
-    const [navBorder, setNavBorder] = useState(index)
-    const CTA = ['θT', 'THETA BETA CHAPTER']
+    const router = useRouter()
 
-    const navigationItems = navData.map((entry, idx) => {
+    function handleEvent(
+        event: ChangeEvent<HTMLInputElement>,
+        number: string
+    ): void
+
+    function handleEvent(
+        event: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
+        number: string
+    ): void
+
+    function handleEvent(event: any, number: any) {
+        event.currentTarget.style.cursor = 'pointer'
+        event.currentTarget.style.transform = `translateY(${number}px)`
+        event.currentTarget.style.transition = '0.3s'
+    }
+
+    const navContent = navData.map((entry, currentIndex) => {
         return (
-            <Link href={entry.url} key={idx}>
-                <Stack
-                    key={idx}
-                    padding={{ md: '0px 12px', lg: '0px 15px' }}
-                    border={{
-                        base: navBorder === idx ? '2px solid #EDEAB5' : '',
-                        md: 'none'
-                    }}
-                    borderBottom={{
-                        base: '',
-                        md: navBorder === idx ? '3px solid #EDEAB5' : ''
-                    }}
-                    textAlign={{ base: 'left', md: 'center' }}
-                    paddingLeft={{ base: '15px', md: '2px', lg: '10px', xl: '15px' }}
-                    left={0}
-                >
-                    <Text
-                        fontWeight={700}
-                        fontSize={{ sm: '16px', md: '13px', lg: '16px', xl: '18px' }}
-                        letterSpacing='2px'
-                        padding={{ base: '10px 0px', md: '' }}
-                        onMouseEnter={(event) => {
-                            handleEvent(event, '-2')
-                        }}
-                        onMouseLeave={(event) => {
-                            handleEvent(event, '2')
-                        }}
-                        onClick={() => {
-                            if (navBorder !== idx) {
-                                setNavBorder(idx)
-                            }
-                        }}
-                    >
-                        {entry.title.toUpperCase()}
-                    </Text>
-                </Stack>
-            </Link>
+            <Text
+                key={index}
+                fontWeight={700}
+                fontSize={{ sm: '16px', md: '12px', lg: '16px', xl: '18px' }}
+                letterSpacing='2px'
+                padding={{ base: '0px', md: currentIndex === index ? '0px 0px' : '3px 0px' }}
+            >
+                {entry.title.toUpperCase()}
+            </Text>
         )
     })
-
     return (
-        <HStack
-            flex={2}
-            padding='10px 20px'
-            backgroundColor='#8B0000'
-            color='#EDEAB5'
-        >
-            <Stack
-                width={{ base: '80px', md: '50px' }}
-                marginLeft={{ base: '5px', md: '1px', lg: '20px' }}
-                marginRight={{ base: '10px', md: '18px', lg: '35px' }}
-                onMouseEnter={(event) => {
-                    handleEvent(event, '-2')
-                }}
-                onMouseLeave={(event) => {
-                    handleEvent(event, '2')
-                }}
+        <Stack width='100%' alignItems='center' backgroundColor='colors.900'>
+            <HStack
+                height={{ base: '100px', sm: '120px' }}
+                paddingRight='5px'
+                width='100%'
             >
-                <Link href='/'>
-                    <Image
-                        alt={logo.alt}
-                        src={logo.src}
-                        width={{ base: '100px', md: '50px' }}
-                        objectFit={{ base: 'contain', md: 'contain' }}
-                        borderRadius='10px'
-                    />
-                </Link>
-            </Stack>
-            <Hide below='md'>
-                <HStack height='70px' alignItems='center'>
-                    {navigationItems}
-                </HStack>
-            </Hide>
-            <Stack flex={2} alignItems='flex-end'>
-                {/* <ColorModeSwitcher /> */}
-                {(() => {
-                    return (
-                        <VStack
-                            width={{ base: '200px', md: '100px', lg: '120px', xl: '300px' }}
-                            padding={{ base: '15px', md: '10px' }}
+                <HStack width='100%' alignItems='flex-end'>
+                    <Link href='/'>
+                        <Stack
+                            width={{ base: '80px', md: '75px' }}
+                            marginLeft={{ base: '10px', md: '5px', lg: '20px' }}
+                            marginRight={{ base: '15px', md: '5px', lg: '35px' }}
+                            onMouseEnter={(event) => {
+                                handleEvent(event, '-2')
+                            }}
+                            onMouseLeave={(event) => {
+                                handleEvent(event, '2')
+                            }}
+                            paddingTop={{ base: '12px', sm: '0px' }}
                         >
-                            {CTA.map((entry, index) => {
+                            <Image
+                                src={logo.src}
+                                alt={logo.alt}
+                                borderRadius={{ base: '4px', md: '10px' }}
+                            />
+                        </Stack>
+                    </Link>
+                    <Stack
+                        width='100%'
+                        justifyContent='center'
+                        fontSize={{ base: '14px', sm: '16px', md: '13px', lg: '16px', xl: '18px' }}
+                        fontWeight={700}
+                        color='colors.800'
+                    >
+                        <Text>
+                            θT THETA BETA CHAPTER
+                        </Text>
+                        <Text>
+                            University of Washington
+                        </Text>
+                    </Stack>
+                </HStack>
+                <Hide below='md'>
+                    <Stack alignItems='flex-end' width='100%'>
+                        {/* <HStack justifyContent='flex-end' paddingTop='20px'>
+                            <Button onClick={() => router.push('/auth/login-page')}>Log in</Button>
+                            <IconButton
+                                icon={<CgProfile />}
+                                aria-label='Go to profile'
+                                onClick={() => {
+                                    router.push('/user/profile')
+                                }}
+                            />
+                        </HStack> */}
+                        <HStack height='70px' alignItems='center'>
+                            {navContent.map((entry, currentIndex) => {
                                 return (
-                                    <Text
-                                        width='100%'
-                                        textAlign='left'
-                                        fontSize={{ base: '14px', md: '12px', lg: '16px', xl: '20px' }}
-                                        fontWeight={650}
-                                        key={index}
-                                    >
-                                        {entry.toUpperCase()}
-                                    </Text>
+                                    <Link href={`${navData[index].url}`} key={index}>
+                                        <Stack
+                                            key={index}
+                                            textAlign={{ base: 'left', md: 'center' }}
+                                            padding='2px 5px'
+                                            borderBottom={{
+                                                base: '',
+                                                md: currentIndex === index ? '3px solid #EDEAB5' : '0px'
+                                            }}
+                                            borderRadius='3px'
+                                            _hover={{
+                                                backgroundColor: 'colors.200',
+                                                color: 'colors.300'
+                                            }}
+                                            color='colors.800'
+                                            onMouseEnter={(event) => {
+                                                handleEvent(event, '-2')
+                                            }}
+                                            onMouseLeave={(event) => {
+                                                handleEvent(event, '2')
+                                            }}
+                                        >
+                                            {entry}
+                                        </Stack>
+                                    </Link>
                                 )
                             })}
-                        </VStack>
-                    )
-                })()}
-            </Stack >
-            <Show below='md'>
-                <HStack justifyContent='flex-end' width='100%'>
-                    <Menu>
-                        <MenuButton
-                            as={IconButton}
-                            arial-label='Options'
-                            icon={<HamburgerIcon />}
-                            backgroundColor='#EDEAB5'
-                            color='#8B0000'
-                            _hover={{ backgroundColor: '#8B0000', color: '#FFF' }}
-                            variant='outline'
-                        />
-                        <MenuList
-                            padding='20px'
-                            backgroundColor='#8B0000'
-                        >
-                            {navigationItems}
-                        </MenuList>
-                    </Menu>
-                </HStack>
-            </Show>
-        </HStack>
+                        </HStack>
+                    </Stack>
+                </Hide>
+                <Show below='md'>
+                    <HStack justifyContent='flex-end' width={{ base: 'fit-content', md: '100%' }}>
+                        <Menu>
+                            <MenuButton
+                                as={IconButton}
+                                arial-label='Options'
+                                icon={<GiHamburgerMenu />}
+                                backgroundColor='#FFF'
+                                color='colors.700'
+                                _hover={{ backgroundColor: 'colors.700', color: '#FFF' }}
+                                variant='outline'
+                            />
+                            <MenuList
+                                padding='20px'
+                                backgroundColor='#FFF'
+                            >
+                                {navContent.map((entry, currentIndex) => {
+                                    return (
+                                        <Link href={`${navData[index].url}`} key={index}>
+                                            <MenuItem
+                                                width='100%'
+                                                backgroundColor={{
+                                                    base: currentIndex === index ? 'colors.700' : '',
+                                                    md: '#FFF'
+                                                }}
+                                                color={{
+                                                    base: currentIndex === index ? '#FFF' : 'colors.700',
+                                                    md: 'colors.700'
+                                                }}
+                                                borderBottom={{
+                                                    base: '',
+                                                    md: currentIndex === index ? '3px solid #E0E1DC' : '0px'
+                                                }}
+                                                borderRadius='3px'
+                                            >
+                                                {entry}
+                                            </MenuItem>
+                                        </Link>
+                                    )
+                                })}
+                                <HStack paddingTop='35px' justifyContent='space-between'>
+                                    <MenuItem
+                                        flex={1}
+                                        borderRadius='5px'
+                                        onClick={() => {
+                                            router.push('/auth/login-page')
+                                        }}
+                                        onKeyDown={(event) => {
+                                            if (event.key == 'Enter') {
+                                                router.push('/auth/login-page')
+                                            }
+                                        }}
+                                    >
+                                        <Text fontWeight={600} padding='5px' borderBottom='1px solid #000'>
+                                            Log in
+                                        </Text>
+                                    </MenuItem>
+                                    <MenuItem
+                                        flex={1}
+                                        borderRadius='5px'
+                                        onClick={() => {
+                                            router.push('/user/profile')
+                                        }}
+                                        onKeyDown={(event) => {
+                                            if (event.key == 'Enter') {
+                                                router.push('/user/profile')
+                                            }
+                                        }}
+                                    >
+                                        <IconButton
+                                            icon={<CgProfile />}
+                                            aria-label='Go to profile'
+                                        />
+                                    </MenuItem>
+                                </HStack>
+                            </MenuList>
+                        </Menu>
+                    </HStack>
+                </Show>
+            </HStack>
+        </Stack >
     )
-}
-
-function handleEvent(
-    event: ChangeEvent<HTMLInputElement>,
-    number: string
-): void
-
-function handleEvent(
-    event: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
-    number: string
-): void
-
-function handleEvent(event: any, number: string) {
-    event.currentTarget.style.cursor = 'pointer'
-    event.currentTarget.style.transform = `translateY(${number}px)`
-    event.currentTarget.style.transition = '0.3s'
 }
