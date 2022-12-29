@@ -7,6 +7,7 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import Link from "next/link";
 import router from 'next/router'
 import MarginStack from "../MarginStack";
+import useScreenWidth from '../../lib/useScreenWidth'
 
 interface Props {
     data: ContentSliderProps[]
@@ -15,25 +16,23 @@ interface Props {
 export default function ContentSlider({ data }: Props) {
     const [index, setIndex] = useState<number>(0)
 
+    const { screenSize } = useScreenWidth()
+    const gradient = `linear-gradient(0deg, rgba(0,0,0,0.85) ${screenSize < 768 ? '65' : '40'}%, rgba(255,255,255,0) 90%)`
     const htmlDescription = data.map((entry) => {
         return documentToHtmlString(entry.description)
     })
 
     const [carouselItems, setCarouselItems] = useState<ContentSliderProps[]>(data)
     const [touchPosition, setTouchPosition] = useState<number | null>(null)
-    const [simulateChange, setSimulateChange] = useState(
-        `linear-gradient(0deg, rgba(199,203,232,1) 0%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 45%), 
-                            url(${carouselItems[index].backgroundImage.image})`
-    )
+    const [simulateChange, setSimulateChange] = useState(`${gradient}, url(${carouselItems[index].backgroundImage.image})`)
 
     useEffect(() => {
-        setSimulateChange('#FFF')
+        setSimulateChange('#F8F8F8')
         const timer = setTimeout(() => {
-            setSimulateChange(`linear-gradient(0deg, rgba(199,203,232,1) 0%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 45%), 
-            url(${carouselItems[index].backgroundImage.image})`)
+            setSimulateChange(`${gradient}, url(${carouselItems[index].backgroundImage.image})`)
         }, 300)
         return () => clearTimeout(timer)
-    }, [index])
+    }, [index, screenSize])
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -92,10 +91,10 @@ export default function ContentSlider({ data }: Props) {
     return (
         <MarginStack>
             <Stack width='100%' alignItems='center'>
-                <Stack width='100%' direction={{ base: 'column', sm: 'row' }}>
+                <Stack width='100%' direction={{ base: 'column', md: 'row' }}>
                     <Stack
                         width='100%'
-                        height={{ base: '400px', sm: '600px' }}
+                        height={{ base: '400px', sm: '450px', md: '600px' }}
                         alignItems='flex-start'
                         justifyContent='flex-end'
                         overflow='hidden'
@@ -107,34 +106,34 @@ export default function ContentSlider({ data }: Props) {
                         backgroundPosition='center'
                         backgroundRepeat='no-repeat'
                         backgroundBlendMode='normal'
-                        bgColor='linear-gradient(180deg, rgba(199,203,232,1) 0%, rgba(57,53,76,1) 0%, rgba(0,0,0,0) 42%)'
+                        bgColor={gradient}
                         border='1px solid #EEE'
                         onTouchStart={handleTouchStart}
                         onTouchMove={handleTouchMove}
                         borderRadius='5px'
                     >
-                        <HStack width='100%' justifyContent='space-between' position='absolute' top={{ base: '35%', md: '50%' }}>
+                        <HStack width='100%' justifyContent='space-between' position='absolute' top={{ base: '0%', sm: '30%', md: '40%', lg: '45%' }}>
                             <Stack padding='25px' onClick={() => previous()}>
                                 <IconButton
-                                    icon={<IoMdArrowBack color="#EEE" size='20px' />}
-                                    backgroundColor='colors.200'
-                                    _hover={{ backgroundColor: '#888' }}
+                                    icon={<IoMdArrowBack color="#EDEAB5" size='20px' />}
+                                    backgroundColor='colors.900'
+                                    _hover={{ backgroundColor: '#2B2B2B' }}
                                     aria-label={`go back to image ${index}`}
                                     onClick={() => previous()}
                                 />
                             </Stack>
                             <Stack padding='25px'>
                                 <IconButton
-                                    icon={<IoMdArrowForward color="#EEE" size='20px' />}
-                                    _hover={{ backgroundColor: '#888' }}
-                                    backgroundColor='colors.200'
+                                    icon={<IoMdArrowForward color="#EDEAB5" size='20px' />}
+                                    _hover={{ backgroundColor: '#2B2B2B' }}
+                                    backgroundColor='colors.900'
                                     aria-label={`go to next image ${index}`}
                                     onClick={() => next()}
                                 />
                             </Stack>
                         </HStack>
                         <Stack
-                            color='#FFF'
+                            color='#F8F8F8'
                             padding='15px'
                             width='100%'
                             onMouseEnter={(event) => {
@@ -159,7 +158,6 @@ export default function ContentSlider({ data }: Props) {
                                 width='75%'
                                 dangerouslySetInnerHTML={{ __html: htmlDescription[index] }}
                             />
-                            {/* {carouselItems[index].data.text.description} */}
                             {carouselItems[index].button.map((button, index) => {
                                 return (
                                     <Link key={index} href={button.link}>
@@ -181,17 +179,14 @@ export default function ContentSlider({ data }: Props) {
                             })}
                         </HStack>
                     </Stack>
-                    <Show above='sm'>
+                    <Show above='md'>
                         <Stack width={{ base: '100%', sm: '45%', md: '30%' }} height={{ base: '250px', sm: '600px' }} justifyContent='flex-end'>
-                            {/* <Text fontSize='18px' textAlign='center' fontWeight={900}>
-                                STAY IN THE LOOP
-                            </Text> */}
                             <Grid templateColumns={{ base: 'repeat(4, 1fr)', sm: '1fr' }} height='600px' paddingTop='20px' alignItems='center'>
                                 {carouselItems.map((entry, idx) => {
                                     return (
                                         <GridItem
                                             key={idx}
-                                            borderRight={index === idx ? '5px solid #006E44' : 'none'}
+                                            borderRight={index === idx ? '5px solid #8B0000' : 'none'}
                                             textAlign='right'
                                             paddingRight={index === idx ? '10px' : '15px'}
                                             onMouseEnter={(event) => {
@@ -218,14 +213,14 @@ export default function ContentSlider({ data }: Props) {
                             </Grid>
                         </Stack>
                     </Show>
-                    <Show below='sm'>
-                        <Stack width={{ base: '100%', sm: '45%', md: '30%' }} height='115px' justifyContent='flex-end'>
-                            <Grid templateColumns={{ base: 'repeat(4, 1fr)', sm: '1fr' }} alignItems='center'>
+                    <Show below='md'>
+                        <Stack width={{ base: '100%', sm: '100%', md: '30%' }} height='115px' justifyContent='flex-end'>
+                            <Grid templateColumns={{ base: 'repeat(4, 1fr)', md: '1fr' }} alignItems='center'>
                                 {carouselItems.map((entry, idx) => {
                                     return (
                                         <GridItem
                                             key={idx}
-                                            borderBottom={index === idx ? '5px solid #006E44' : 'none'}
+                                            borderBottom={index === idx ? '5px solid #8B0000' : 'none'}
                                             textAlign='left'
                                             paddingRight={index === idx ? '10px' : '15px'}
                                             onMouseEnter={(event) => {
@@ -238,7 +233,7 @@ export default function ContentSlider({ data }: Props) {
                                             borderRight='2px solid #DDD'
                                             padding='5px'
                                         >
-                                            <Text fontSize='12px' fontWeight={900}>
+                                            <Text fontSize='12px' fontWeight={900} noOfLines={2}>
                                                 {entry.title.toUpperCase()}
                                             </Text>
                                             <Text

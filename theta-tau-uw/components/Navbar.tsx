@@ -104,7 +104,7 @@ export default function Navbar({ navData, logo, index }: Props) {
                         <HStack height='70px' alignItems='center'>
                             {navContent.map((entry, currentIndex) => {
                                 return (
-                                    <Link href={`${navData[index].url}`} key={index}>
+                                    <Link href={`${navData[index].url}`} key={currentIndex}>
                                         <Stack
                                             textAlign={{ base: 'left', md: 'center' }}
                                             padding='2px 5px'
@@ -151,7 +151,7 @@ export default function Navbar({ navData, logo, index }: Props) {
                             >
                                 {navContent.map((entry, currentIndex) => {
                                     return (
-                                        <Link href={`${navData[index].url}`} key={index}>
+                                        <Link href={`${navData[index].url}`} key={currentIndex}>
                                             <MenuItem
                                                 width='100%'
                                                 backgroundColor={{
@@ -202,10 +202,10 @@ export default function Navbar({ navData, logo, index }: Props) {
                                             }
                                         }}
                                     >
-                                        <IconButton
+                                        {/* <IconButton
                                             icon={<CgProfile />}
                                             aria-label='Go to profile'
-                                        />
+                                        /> */}
                                     </MenuItem>
                                 </HStack>
                             </MenuList>
