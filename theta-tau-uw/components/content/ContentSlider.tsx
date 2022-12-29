@@ -1,29 +1,72 @@
-import { HStack, Stack, Text, IconButton, Button } from "@chakra-ui/react";
-import { useState } from "react";
-import getBannerArticle from "../../lib/getBannerArticle";
-import { BannerArticleData, ButtonData, ContentSliderResponse } from "../../lib/types";
-import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
-// import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
+import { ContentSliderProps } from "../../lib/types";
+import { HStack, Stack, Text, IconButton, Icon, Grid, GridItem, Show, Hide, } from "@chakra-ui/react";
+import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
+import { BsChevronDoubleRight } from 'react-icons/bs'
+import { TouchEvent, useEffect, useState } from "react";
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import Link from "next/link";
+import router from 'next/router'
+import MarginStack from "../MarginStack";
+import useScreenWidth from '../../lib/useScreenWidth'
 
 interface Props {
-    data: ContentSliderResponse
+    data: ContentSliderProps[]
 }
 
 export default function ContentSlider({ data }: Props) {
     const [index, setIndex] = useState<number>(0)
-    const [carouselItems, setCarouselItems] = useState<BannerArticleData[] | null>()
-    const [refresh, setRefresh] = useState(true)
 
-    Promise.all(data.bannerItems.map(async (entry) => {
-        const data = await getBannerArticle(entry.sys.id)
-        return data
-    })).then((res) => {
-        if (res.length && refresh) {
-            setRefresh(false)
-            setCarouselItems(res)
-        }
+    const { screenSize } = useScreenWidth()
+    const gradient = `linear-gradient(0deg, rgba(0,0,0,0.85) ${screenSize < 768 ? '65' : '40'}%, rgba(255,255,255,0) 90%)`
+    const htmlDescription = data.map((entry) => {
+        return documentToHtmlString(entry.description)
     })
+
+    const [carouselItems, setCarouselItems] = useState<ContentSliderProps[]>(data)
+    const [touchPosition, setTouchPosition] = useState<number | null>(null)
+    const [simulateChange, setSimulateChange] = useState(`${gradient}, url(${carouselItems[index].backgroundImage.image})`)
+
+    useEffect(() => {
+        setSimulateChange('#F8F8F8')
+        const timer = setTimeout(() => {
+            setSimulateChange(`${gradient}, url(${carouselItems[index].backgroundImage.image})`)
+        }, 300)
+        return () => clearTimeout(timer)
+    }, [index, screenSize])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIndex(index === carouselItems.length - 1 ? 0 : index + 1)
+        }, 30000);
+
+        return () => clearInterval(interval);
+    }, [index])
+
+    const handleTouchStart = (event: TouchEvent) => {
+        const touchDown = event.touches[0].clientX
+        setTouchPosition(touchDown)
+    }
+
+    const handleTouchMove = (event: TouchEvent) => {
+        const touchDown = touchPosition
+
+        if (touchDown === null) {
+            return
+        }
+
+        const currentTouch = event.touches[0].clientX
+        const diff = touchDown - currentTouch
+
+        if (diff > 5) {
+            next()
+        }
+
+        if (diff < -5) {
+            previous()
+        }
+
+        setTouchPosition(null)
+    }
 
     const next = () => {
         if (carouselItems) {
@@ -45,97 +88,168 @@ export default function ContentSlider({ data }: Props) {
         }
     }
 
-    let imageUrl = ''
-    let text = ''
-    let title = ''
-    let buttons: ButtonData[] = []
-    if (carouselItems) {
-        imageUrl = carouselItems[index].backgroundImage[index].src
-        text = documentToHtmlString(carouselItems[index].description)
-        title = carouselItems[index].title
-        buttons = carouselItems[index].button
-    }
-
     return (
-
-
-        <HStack
-            backgroundImage={
-                `url(https://${imageUrl})`
-            }
-            backgroundSize='100%'
-            backgroundRepeat='no-repeat'
-            backgroundPosition='center'
-            height={{ base: '35vh', sm: '36vh', md: '55vh', lg: '65vh', xl: '75vh' }}
-        >
-            <Stack padding='25px'>
-                <IconButton
-                    icon={<ArrowBackIcon />}
-                    aria-label={`go back to image ${index}`}
-                    onClick={() => previous()}
-                />
-            </Stack>
-            <HStack
-                width='100%'
-                height='100%'
-                alignItems='center'
-                justifyContent='center'
-                color='#FFF'
-            >
-                <Stack
-                    zIndex={100}
-                    borderRadius='10px'
-                    width={{ base: '100%', md: '70%', lg: '65%', xl: '50%' }}
-                    height={{ base: '70%', sm: '80%', md: '65%', lg: '50%' }}
-                    backdropFilter='auto'
-                    backdropBlur='10px'
-                    backdropBrightness='30%'
-                    padding='20px'
-                    justifyContent='space-around'
-                >
-                    <Stack>
-                        <Text
-                            fontWeight={800}
-                            fontSize={{ base: '16px', sm: '18px', md: '28px', lg: '36px', xl: '40px' }}
+        <MarginStack>
+            <Stack width='100%' alignItems='center'>
+                <Stack width='100%' direction={{ base: 'column', md: 'row' }}>
+                    <Stack
+                        width='100%'
+                        height={{ base: '400px', sm: '450px', md: '600px' }}
+                        alignItems='flex-start'
+                        justifyContent='flex-end'
+                        overflow='hidden'
+                        position='relative'
+                        background={simulateChange}
+                        transition='0.3s'
+                        opacity={simulateChange === '#FFF' ? 0 : 1}
+                        backgroundSize='cover'
+                        backgroundPosition='center'
+                        backgroundRepeat='no-repeat'
+                        backgroundBlendMode='normal'
+                        bgColor={gradient}
+                        border='1px solid #EEE'
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        borderRadius='5px'
+                    >
+                        <HStack width='100%' justifyContent='space-between' position='absolute' top={{ base: '0%', sm: '30%', md: '40%', lg: '45%' }}>
+                            <Stack padding='25px' onClick={() => previous()}>
+                                <IconButton
+                                    icon={<IoMdArrowBack color="#EDEAB5" size='20px' />}
+                                    backgroundColor='colors.900'
+                                    _hover={{ backgroundColor: '#2B2B2B' }}
+                                    aria-label={`go back to image ${index}`}
+                                    onClick={() => previous()}
+                                />
+                            </Stack>
+                            <Stack padding='25px'>
+                                <IconButton
+                                    icon={<IoMdArrowForward color="#EDEAB5" size='20px' />}
+                                    _hover={{ backgroundColor: '#2B2B2B' }}
+                                    backgroundColor='colors.900'
+                                    aria-label={`go to next image ${index}`}
+                                    onClick={() => next()}
+                                />
+                            </Stack>
+                        </HStack>
+                        <Stack
+                            color='#F8F8F8'
+                            padding='15px'
+                            width='100%'
+                            onMouseEnter={(event) => {
+                                event.currentTarget.style.paddingBottom = '20px'
+                                event.currentTarget.style.transition = '0.6s'
+                                event.currentTarget.style.cursor = 'pointer'
+                            }}
+                            onMouseLeave={(event) => {
+                                event.currentTarget.style.paddingBottom = '15px'
+                                event.currentTarget.style.transition = '0.6s'
+                            }}
+                            onClick={() => {
+                                router.push('/')
+                            }}
                         >
-                            {title}
-                        </Text>
-                        <Text
-                            fontSize={{ base: '14px', sm: '14px', md: '16px', lg: '18px' }}
-                            dangerouslySetInnerHTML={{ __html: text }}
-                            noOfLines={[5, 5, 6, 5, 4, 5]}
-                        />
+                            <Text fontWeight={800} fontSize={{ base: '26px', md: '35px' }}>
+                                {carouselItems[index].title}
+                            </Text>
+                            <Text
+                                fontWeight={500}
+                                fontSize={{ base: '12px', md: '15px' }}
+                                width='75%'
+                                dangerouslySetInnerHTML={{ __html: htmlDescription[index] }}
+                            />
+                            {carouselItems[index].button.map((button, index) => {
+                                return (
+                                    <Link key={index} href={button.link}>
+                                        <HStack>
+                                            <Text fontWeight={700} fontSize={{ base: '12px', md: '15px' }} textDecoration='underline'>
+                                                {button.title}
+                                            </Text>
+                                            <Icon as={BsChevronDoubleRight} />
+                                        </HStack>
+                                    </Link>
+                                )
+                            })}
+                        </Stack>
+                        <HStack width='100%' justifyContent='center' paddingBottom='20px'>
+                            {data.map((_, idx) => {
+                                return (
+                                    <Stack key={idx} height='8px' width='8px' borderRadius='full' backgroundColor={idx == index ? '#FFF' : '#333'} />
+                                )
+                            })}
+                        </HStack>
                     </Stack>
-                    <HStack key={index} justifyContent={{ base: 'center', md: 'flex-end' }} width='100%'>
-                        {buttons.map((entry, index) => {
-                            return (
-                                <Button
-                                    key={index}
-                                    onClick={() => {
-                                        window.location.href = `${entry.link}`
-                                    }}
-                                    maxWidth='250px'
-                                    backgroundColor='#8B0000'
-                                    width={{ base: '130px', sm: '130px', md: '150px', lg: '165px' }}
-                                    height={{ base: '35px', sm: '35px', md: '40px', lg: '45px' }}
-                                    fontSize={{ base: '14px', sm: '14px', md: '16px', lg: '18px' }}
-                                >
-                                    {entry.title}
-                                </Button>
-
-                            )
-                        })}
-                    </HStack>
+                    <Show above='md'>
+                        <Stack width={{ base: '100%', sm: '45%', md: '30%' }} height={{ base: '250px', sm: '600px' }} justifyContent='flex-end'>
+                            <Grid templateColumns={{ base: 'repeat(4, 1fr)', sm: '1fr' }} height='600px' paddingTop='20px' alignItems='center'>
+                                {carouselItems.map((entry, idx) => {
+                                    return (
+                                        <GridItem
+                                            key={idx}
+                                            borderRight={index === idx ? '5px solid #8B0000' : 'none'}
+                                            textAlign='right'
+                                            paddingRight={index === idx ? '10px' : '15px'}
+                                            onMouseEnter={(event) => {
+                                                event.currentTarget.style.cursor = 'pointer'
+                                            }}
+                                            onClick={() => {
+                                                setIndex(idx)
+                                            }}
+                                            alignItems='space-around'
+                                        >
+                                            <Text fontSize='12px' fontWeight={900}>
+                                                {entry.title.toUpperCase()}
+                                            </Text>
+                                            <Text
+                                                noOfLines={2}
+                                                fontSize='12px'
+                                                fontWeight={600}
+                                                dangerouslySetInnerHTML={{ __html: htmlDescription[index] }}
+                                            />
+                                            <Stack borderBottom='2px solid #DDD' paddingTop='15px' />
+                                        </GridItem>
+                                    )
+                                })}
+                            </Grid>
+                        </Stack>
+                    </Show>
+                    <Show below='md'>
+                        <Stack width={{ base: '100%', sm: '100%', md: '30%' }} height='115px' justifyContent='flex-end'>
+                            <Grid templateColumns={{ base: 'repeat(4, 1fr)', md: '1fr' }} alignItems='center'>
+                                {carouselItems.map((entry, idx) => {
+                                    return (
+                                        <GridItem
+                                            key={idx}
+                                            borderBottom={index === idx ? '5px solid #8B0000' : 'none'}
+                                            textAlign='left'
+                                            paddingRight={index === idx ? '10px' : '15px'}
+                                            onMouseEnter={(event) => {
+                                                event.currentTarget.style.cursor = 'pointer'
+                                            }}
+                                            onClick={() => {
+                                                setIndex(idx)
+                                            }}
+                                            minHeight={{ base: '120px', sm: '105px' }}
+                                            borderRight='2px solid #DDD'
+                                            padding='5px'
+                                        >
+                                            <Text fontSize='12px' fontWeight={900} noOfLines={2}>
+                                                {entry.title.toUpperCase()}
+                                            </Text>
+                                            <Text
+                                                noOfLines={2}
+                                                fontSize='12px'
+                                                fontWeight={600}
+                                                dangerouslySetInnerHTML={{ __html: htmlDescription[index] }}
+                                            />
+                                        </GridItem>
+                                    )
+                                })}
+                            </Grid>
+                        </Stack>
+                    </Show>
                 </Stack>
-            </HStack>
-            <Stack padding='25px'>
-                <IconButton
-                    icon={<ArrowForwardIcon />}
-                    aria-label={`go nexy to image ${index}`}
-                    onClick={() => next()}
-                />
             </Stack>
-        </HStack>
-
+        </MarginStack >
     )
 }
