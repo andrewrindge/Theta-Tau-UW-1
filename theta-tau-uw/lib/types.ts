@@ -1,3 +1,5 @@
+
+
 export interface Test {
     test: string
 }
@@ -171,4 +173,48 @@ export interface ContainerProps {
     children: React.ReactNode
     padding?: string
     p?: string
+}
+
+export interface ImageFile {
+    fields: {
+        title: string
+        file: {
+            url: string
+        }
+    }
+}
+
+export interface Image {
+    fields: {
+        image: ImageFile
+        alt: string
+    }
+}
+
+
+export interface BannerItemsProps {
+    fields: {
+        backgroundImage: Image
+        button: Button[]
+        description: RichTextContent
+    }
+}
+
+import { RichTextContent } from "contentful"
+
+export interface Button {
+    link: string
+    title: string
+
+}
+
+export interface ContentSliderProps {
+    backgroundImage: {
+        alt: string,
+        image: string
+    },
+    title: string
+    button: Button[],
+    // description: RichTextContent
+    description: any
 }

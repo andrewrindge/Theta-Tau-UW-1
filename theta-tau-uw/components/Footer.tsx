@@ -1,4 +1,4 @@
-import { HStack, Stack, Text, VStack, IconButton, Hide, Show } from "@chakra-ui/react";
+import { HStack, Stack, Text, VStack, Icon, Hide, Show } from "@chakra-ui/react";
 import Image from 'next/image'
 import Link from "next/link";
 import { FinalLogoProps, FinalNavEntryItems, SocialMediaLinks } from "../lib/types";
@@ -6,6 +6,7 @@ import MarginStack from "./MarginStack";
 import { FaInstagramSquare, FaFacebookSquare } from 'react-icons/fa'
 import { GrMail } from 'react-icons/gr'
 import React from "react";
+import { IconType } from "react-icons/lib";
 
 interface Props {
     navData: FinalNavEntryItems[]
@@ -87,16 +88,20 @@ export default function Footer({ navData, logo, socialMediaLinks }: Props) {
                         </Text>
                         <HStack>
                             {socialMediaLinks.map((entry, index) => {
-                                const Icon: JSX.Element = (() => {
+                                const IconImage: IconType = (() => {
                                     switch (entry.type) {
                                         case 'facebook':
-                                            return <FaFacebookSquare size='30px' />
+                                            // return <FaFacebookSquare size='30px' />
+                                            return FaFacebookSquare
                                         case 'instagram':
-                                            return <FaInstagramSquare size='30px' />
+                                            // return <FaInstagramSquare size='30px' />
+                                            return FaInstagramSquare
                                         case 'mail':
-                                            return <GrMail size='30px' />
+                                            // return <GrMail size='30px' />
+                                            return GrMail
                                         default:
-                                            return <React.Fragment></React.Fragment>
+                                            // return <GrMail size='30px' />
+                                            return GrMail
                                     }
                                 })()
 
@@ -107,8 +112,8 @@ export default function Footer({ navData, logo, socialMediaLinks }: Props) {
                                             target='_blank'
                                             rel='noopener noreferrer'
                                         >
-                                            <IconButton
-                                                icon={Icon}
+                                            <Icon
+                                                as={IconImage}
                                                 aria-label='Go to Theta Tau'
                                                 backgroundColor='#DDD'
                                                 objectFit='cover'
@@ -116,7 +121,7 @@ export default function Footer({ navData, logo, socialMediaLinks }: Props) {
                                                 width='30px'
                                             >
 
-                                            </IconButton>
+                                            </Icon>
 
                                         </a>
                                     </Stack>

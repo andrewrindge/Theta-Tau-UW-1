@@ -36,7 +36,7 @@ export default function Navbar({ navData, logo, index }: Props) {
     const navContent = navData.map((entry, currentIndex) => {
         return (
             <Text
-                key={index}
+                key={entry.title}
                 fontWeight={700}
                 fontSize={{ sm: '16px', md: '12px', lg: '16px', xl: '18px' }}
                 letterSpacing='2px'
@@ -106,7 +106,6 @@ export default function Navbar({ navData, logo, index }: Props) {
                                 return (
                                     <Link href={`${navData[index].url}`} key={index}>
                                         <Stack
-                                            key={index}
                                             textAlign={{ base: 'left', md: 'center' }}
                                             padding='2px 5px'
                                             borderBottom={{
