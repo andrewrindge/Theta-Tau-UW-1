@@ -1,5 +1,3 @@
-import { RichTextContent } from 'contentful'
-import Document from 'next/document'
 import { ContentSliderProps, Image, Button } from '../types'
 import { client } from '../useContentful/useContentful'
 
