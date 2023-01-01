@@ -54,5 +54,13 @@ export function getHomePage() {
             throw new Error(`Full screen banner failed to load: ${error}`)
         }
     }
+
+    const getLargeInformationBanner = async () => {
+        try {
+
+        } catch (error) {
+            throw new Error(`error fetching large information banner: ${error}`)
+        }
+    }
     return { getContentSlider }
 }
