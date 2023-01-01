@@ -1,7 +1,7 @@
 import { Stack, HStack, Text, Hide, Show, Menu, MenuButton, IconButton, MenuList, Image, VStack, MenuItem } from '@chakra-ui/react'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { CgProfile } from 'react-icons/cg'
-import { FinalNavEntryItems, FinalLogoProps } from '../lib/types'
+import { FinalNavEntryItems, FinalLogoProps } from '../../lib/types'
 import Link from 'next/link'
 import React, { ChangeEvent, useState } from 'react'
 import MarginStack from './MarginStack'

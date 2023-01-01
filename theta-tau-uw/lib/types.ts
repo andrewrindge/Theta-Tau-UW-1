@@ -218,3 +218,14 @@ export interface ContentSliderProps {
     // description: RichTextContent
     description: any
 }
+
+export interface LargeBannerProps {
+    title: string
+    description: string
+    button?: {
+        text: string
+        url: string
+    }
+    image: Image
+    reverse: boolean
+}

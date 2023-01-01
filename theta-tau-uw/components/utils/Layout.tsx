@@ -2,7 +2,7 @@ import { Stack } from "@chakra-ui/react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { ReactNode } from "react";
-import { FinalNavEntryItems, FinalLogoProps, SocialMediaLinks } from "../lib/types";
+import { FinalNavEntryItems, FinalLogoProps, SocialMediaLinks } from "../../lib/types";
 
 
 interface Props {

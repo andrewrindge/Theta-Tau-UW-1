@@ -6,7 +6,7 @@ import { TouchEvent, useEffect, useState } from "react";
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import Link from "next/link";
 import router from 'next/router'
-import MarginStack from "../MarginStack";
+import MarginStack from "../utils/MarginStack";
 import useScreenWidth from '../../lib/useScreenWidth'
 
 interface Props {
@@ -48,22 +48,16 @@ export default function ContentSlider({ data }: Props) {
     }
 
     const handleTouchMove = (event: TouchEvent) => {
+        event.preventDefault()
         const touchDown = touchPosition
 
-        if (touchDown === null) {
-            return
-        }
+        if (touchDown === null) return
 
         const currentTouch = event.touches[0].clientX
         const diff = touchDown - currentTouch
 
-        if (diff > 5) {
-            next()
-        }
-
-        if (diff < -5) {
-            previous()
-        }
+        if (diff > 5) next()
+        if (diff < -5) previous()
 
         setTouchPosition(null)
     }
@@ -94,23 +88,23 @@ export default function ContentSlider({ data }: Props) {
                 <Stack width='100%' direction={{ base: 'column', md: 'row' }}>
                     <Stack
                         width='100%'
-                        height={{ base: '400px', sm: '450px', md: '600px' }}
+                        transition='0.3s'
+                        borderRadius='5px'
+                        overflow='hidden'
+                        bgColor={gradient}
+                        position='relative'
+                        backgroundSize='cover'
+                        border='1px solid #EEE'
                         alignItems='flex-start'
                         justifyContent='flex-end'
-                        overflow='hidden'
-                        position='relative'
-                        background={simulateChange}
-                        transition='0.3s'
-                        opacity={simulateChange === '#FFF' ? 0 : 1}
-                        backgroundSize='cover'
                         backgroundPosition='center'
                         backgroundRepeat='no-repeat'
                         backgroundBlendMode='normal'
-                        bgColor={gradient}
-                        border='1px solid #EEE'
-                        onTouchStart={handleTouchStart}
+                        background={simulateChange}
                         onTouchMove={handleTouchMove}
-                        borderRadius='5px'
+                        onTouchStart={handleTouchStart}
+                        opacity={simulateChange === '#FFF' ? 0 : 1}
+                        height={{ base: '400px', sm: '450px', md: '600px' }}
                     >
                         <HStack width='100%' justifyContent='space-between' position='absolute' top={{ base: '0%', sm: '30%', md: '40%', lg: '45%' }}>
                             <Stack padding='25px' onClick={() => previous()}>
@@ -162,7 +156,7 @@ export default function ContentSlider({ data }: Props) {
                                 return (
                                     <Link key={index} href={button.link}>
                                         <HStack>
-                                            <Text fontWeight={700} fontSize={{ base: '12px', md: '15px' }} textDecoration='underline'>
+                                            <Text fontWeight={700} fontSize={{ base: '12px', md: '15px' }} textDecoration='underline' justifySelf=''>
                                                 {button.title}
                                             </Text>
                                             <Icon as={BsChevronDoubleRight} />
