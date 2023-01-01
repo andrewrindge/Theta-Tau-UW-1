@@ -1,6 +1,6 @@
 import { Stack } from "@chakra-ui/react";
-import getBannerArticle from "../lib/getBannerArticle";
-import { BannerArticleData } from "../lib/types";
+import getBannerArticle from "../../lib/getBannerArticle";
+import { BannerArticleData } from "../../lib/types";
 
 interface Props {
     data: string

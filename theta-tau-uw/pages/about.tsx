@@ -1,5 +1,5 @@
 import { Stack, Text } from "@chakra-ui/react";
-import Layout from "../components/Layout";
+import Layout from "../components/utils/Layout";
 import { FinalNavEntryItems, FinalLogoProps, ContentSliderResponse, SocialMediaLinks } from "../lib/types";
 import getNavItems, { getNavImages } from '../lib/getNavItems'
 import { getFooterImages } from "../lib/getFooterItems";
