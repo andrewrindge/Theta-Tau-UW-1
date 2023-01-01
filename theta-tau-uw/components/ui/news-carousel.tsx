@@ -88,23 +88,23 @@ export default function ContentSlider({ data }: Props) {
                 <Stack width='100%' direction={{ base: 'column', md: 'row' }}>
                     <Stack
                         width='100%'
-                        transition='0.3s'
-                        borderRadius='5px'
-                        overflow='hidden'
-                        bgColor={gradient}
-                        position='relative'
-                        backgroundSize='cover'
-                        border='1px solid #EEE'
+                        height={{ base: '400px', sm: '450px', md: '600px' }}
                         alignItems='flex-start'
                         justifyContent='flex-end'
+                        overflow='hidden'
+                        position='relative'
+                        background={simulateChange}
+                        transition='0.3s'
+                        opacity={simulateChange === '#FFF' ? 0 : 1}
+                        backgroundSize='cover'
                         backgroundPosition='center'
                         backgroundRepeat='no-repeat'
                         backgroundBlendMode='normal'
-                        background={simulateChange}
-                        onTouchMove={handleTouchMove}
+                        bgColor={gradient}
+                        border='1px solid #EEE'
                         onTouchStart={handleTouchStart}
-                        opacity={simulateChange === '#FFF' ? 0 : 1}
-                        height={{ base: '400px', sm: '450px', md: '600px' }}
+                        onTouchMove={handleTouchMove}
+                        borderRadius='5px'
                     >
                         <HStack width='100%' justifyContent='space-between' position='absolute' top={{ base: '0%', sm: '30%', md: '40%', lg: '45%' }}>
                             <Stack padding='25px' onClick={() => previous()}>
