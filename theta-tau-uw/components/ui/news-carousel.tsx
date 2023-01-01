@@ -6,7 +6,7 @@ import { TouchEvent, useEffect, useState } from "react";
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import Link from "next/link";
 import router from 'next/router'
-import MarginStack from "../MarginStack";
+import MarginStack from "../utils/MarginStack";
 import useScreenWidth from '../../lib/useScreenWidth'
 
 interface Props {
@@ -48,22 +48,16 @@ export default function ContentSlider({ data }: Props) {
     }
 
     const handleTouchMove = (event: TouchEvent) => {
+        event.preventDefault()
         const touchDown = touchPosition
 
-        if (touchDown === null) {
-            return
-        }
+        if (touchDown === null) return
 
         const currentTouch = event.touches[0].clientX
         const diff = touchDown - currentTouch
 
-        if (diff > 5) {
-            next()
-        }
-
-        if (diff < -5) {
-            previous()
-        }
+        if (diff > 5) next()
+        if (diff < -5) previous()
 
         setTouchPosition(null)
     }
@@ -162,7 +156,7 @@ export default function ContentSlider({ data }: Props) {
                                 return (
                                     <Link key={index} href={button.link}>
                                         <HStack>
-                                            <Text fontWeight={700} fontSize={{ base: '12px', md: '15px' }} textDecoration='underline'>
+                                            <Text fontWeight={700} fontSize={{ base: '12px', md: '15px' }} textDecoration='underline' justifySelf=''>
                                                 {button.title}
                                             </Text>
                                             <Icon as={BsChevronDoubleRight} />

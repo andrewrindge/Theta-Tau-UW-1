@@ -1,7 +1,7 @@
 import { HStack, Stack, Text, VStack, Icon, Hide, Show } from "@chakra-ui/react";
 import Image from 'next/image'
 import Link from "next/link";
-import { FinalLogoProps, FinalNavEntryItems, SocialMediaLinks } from "../lib/types";
+import { FinalLogoProps, FinalNavEntryItems, SocialMediaLinks } from "../../lib/types";
 import MarginStack from "./MarginStack";
 import { FaInstagramSquare, FaFacebookSquare } from 'react-icons/fa'
 import { GrMail } from 'react-icons/gr'
