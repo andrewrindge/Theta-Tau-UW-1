@@ -124,7 +124,7 @@ export default function CardSlider({ children, gap }: Props) {
     };
     return (
         <Stack width='100%' alignItems='center' padding='40px 0px'>
-            <Text fontSize='48px' fontWeight={700}>See What's New</Text>
+            <Text fontSize='48px' fontWeight={700}>See What&apos;s New</Text>
             <Stack width='85%'>
                 <Stack>
                     {/* <IconButton

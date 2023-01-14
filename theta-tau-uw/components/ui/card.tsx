@@ -6,6 +6,7 @@ export default function Card() {
             <Stack border='1px solid #000' width='100%' height='100%'>
                 <Image
                     src='https://i.ibb.co/LZZ4DmD/momomomomo-1.jpg'
+                    alt='momo'
                     objectFit='cover'
                 />
                 <Stack padding='10px'>
