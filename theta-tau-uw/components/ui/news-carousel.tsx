@@ -244,6 +244,6 @@ export default function ContentSlider({ data }: Props) {
                     </Show>
                 </Stack>
             </Stack>
-        </MarginStack >
+        </MarginStack>
     )
 }

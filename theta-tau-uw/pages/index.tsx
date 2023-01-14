@@ -9,6 +9,8 @@ import getSocialMediaLinks from "../lib/getSocialMediaLinks";
 import { getHomePage } from "../lib/getHomePage/getHomePage";
 import dynamic from 'next/dynamic'
 import LargeInformationBanner from "../components/ui/LargeInformationBanner";
+import CardSlider from "../components/ui/card-slider";
+import Card from "../components/ui/card";
 
 interface Props {
     navData: FinalNavEntryItems[]
@@ -25,8 +27,18 @@ export default function Home({ navData, logo, footerLogo, contentSliderData, soc
     return (
         <Layout navData={navData} logo={logo} footerLogo={footerLogo} socialMediaLinks={socialMediaLinks} index={0}>
             <ContentSlider data={contentSliderData} />
+            <CardSlider gap={32}>
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+            </CardSlider>
             <LargeInformationBanner data={largeInfoBanner} />
-            {/* <LargeInformationBanner data={welcomeBanner} /> */}
         </Layout >
     )
 }

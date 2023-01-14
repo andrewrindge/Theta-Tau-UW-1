@@ -1,7 +1,6 @@
 import { Button, Image, Stack, Text } from '@chakra-ui/react'
 import { LargeInformationBannerTestProps } from '../../lib/types'
 import { useRouter } from 'next/router'
-import MarginStack from '../utils/MarginStack'
 
 interface Props {
     data: LargeInformationBannerTestProps
