@@ -229,3 +229,16 @@ export interface LargeBannerProps {
     image: Image
     reverse: boolean
 }
+
+export interface LargeInformationBannerTestProps {
+    title: string
+    description: string
+    button: {
+        title: string
+        link: string
+    }
+    image: {
+        alt: string
+        src: string
+    }
+}

@@ -18,6 +18,20 @@ interface ContentSlider {
     }[]
 }
 
+interface LargeInformationBanner {
+    fields: {
+        button: {
+            fields: {
+                link: string
+                title: string
+            }
+        }
+        description: string
+        title: string
+        image: Image
+    }
+}
+
 export function getHomePage() {
     const getContentSlider = async () => {
         try {
@@ -57,10 +71,40 @@ export function getHomePage() {
 
     const getLargeInformationBanner = async () => {
         try {
+            const rawData = (await client.getEntries({
+                content_type: 'largeInformationBannerTest',
+                include: 5,
+                select: 'fields',
+                'fields.slug': 'Home Page Large Information Banner'
+            })).items as LargeInformationBanner[]
 
+            const data = rawData.map((entry) => {
+                return {
+                    title: entry.fields.title,
+                    description: entry.fields.description,
+                    button: {
+                        title: entry.fields.button.fields.title,
+                        link: entry.fields.button.fields.link
+                    },
+                    image: {
+                        src: 'https:' + entry.fields.image.fields.image.fields.file.url,
+                        alt: entry.fields.image.fields.alt
+                    }
+                }
+            })
+
+            return data[0]
         } catch (error) {
-            throw new Error(`error fetching large information banner: ${error}`)
+            throw new Error(`Failed to get Large Information Banner: ${error}`)
         }
     }
-    return { getContentSlider }
+
+    // const getLargeInformationBanner = async () => {
+    //     try {
+
+    //     } catch (error) {
+    //         throw new Error(`error fetching large information banner: ${error}`)
+    //     }
+    // }
+    return { getContentSlider, getLargeInformationBanner }
 }
