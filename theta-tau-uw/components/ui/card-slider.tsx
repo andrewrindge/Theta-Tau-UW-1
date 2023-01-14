@@ -1,21 +1,19 @@
 /**
- * author: Neil Morgan | https://github.com/neil-morgan
+ * Typescript version of Neil Morgan's (https://github.com/neil-morgan) Chakra Carousel
+ * Added a card looping feature and silent error handling
  */
 
 import {
-    HStack,
     IconButton,
     Stack,
     Text,
     Flex,
     Box,
     VStack,
-    Button,
     Progress,
-    useMediaQuery
+    useMediaQuery,
 } from '@chakra-ui/react';
 import { IoMdArrowBack, IoMdArrowForward } from 'react-icons/io';
-import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import { DraggableInfo } from '../../lib/types';
 import {
     useLayoutEffect,
@@ -27,7 +25,7 @@ import {
     Children,
     Dispatch,
     SetStateAction,
-    KeyboardEventHandler
+
 } from 'react'
 import useBoundingRect from '../../lib/hooks/useBoundingRect';
 import percentage from '../../lib/utils/percentage';
@@ -123,14 +121,25 @@ export default function CardSlider({ children, gap }: Props) {
         gap
     };
     return (
-        <Stack width='100%' alignItems='center' padding='40px 0px'>
-            <Text fontSize='48px' fontWeight={700}>See What&apos;s New</Text>
+        <Stack width='100%' alignItems='center' padding='40px 0px' gap='40px'>
+            <Stack
+                transform='skew(-20deg)'
+                backgroundColor='colors.900'
+                padding='10px'
+                borderRadius='10px'
+                boxShadow='-5px 5px 0px 5px #EDEAB5'
+            >
+                <Text
+                    fontSize={{ base: '28px', md: '36px', lg: '48px' }}
+                    fontWeight={700}
+                    transform='skew(5deg)'
+                    color='colors.100'
+                >
+                    See What&apos;s New
+                </Text>
+            </Stack>
             <Stack width='85%'>
                 <Stack>
-                    {/* <IconButton
-                        aria-label='view more cards on the left'
-                        icon={<IoMdArrowBack />}
-                    /> */}
                     <Slider {...sliderProps}>
                         <Track {...trackProps}>
                             {Children.toArray(children).map((child, index) => (
@@ -140,10 +149,6 @@ export default function CardSlider({ children, gap }: Props) {
                             ))}
                         </Track>
                     </Slider>
-                    {/* <IconButton
-                        aria-label='view more cards on the right'
-                        icon={<IoMdArrowForward />}
-                    /> */}
                 </Stack>
 
             </Stack>
@@ -182,16 +187,29 @@ const Slider = ({
 
     const handleFocus = () => setTrackIsActive(true);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            handleIncrementClick()
+        }, 20000)
+        return () => clearInterval(interval)
+    })
+
     const handleDecrementClick = () => {
         setTrackIsActive(true);
-        !(activeItem === positions.length - positions.length) &&
+        if (activeItem === positions.length - positions.length) {
+            setActiveItem(positions.length - constraint)
+        } else {
             setActiveItem((prev) => prev - 1);
+        }
     };
 
     const handleIncrementClick = () => {
         setTrackIsActive(true);
-        !(activeItem === positions.length - constraint) &&
-            setActiveItem((prev) => prev + 1);
+        if (activeItem >= positions.length - constraint) {
+            setActiveItem(0)
+        } else {
+            setActiveItem((prev) => prev + 1)
+        }
     };
 
     return (
@@ -228,17 +246,18 @@ const Slider = ({
             </Box>
             <Stack>
                 <Flex w={`${itemWidth}px`} mt={`${gap / 2}px`} mx="auto">
-                    <Button
+                    <IconButton
+                        aria-label='view more cards on the left'
+                        icon={<IoMdArrowBack size='25px' />}
                         onClick={handleDecrementClick}
                         onFocus={handleFocus}
                         mr={`${gap / 3}px`}
-                        color="gray.200"
+                        color='colors.800'
+                        backgroundColor='colors.900'
+                        width='35px'
                         variant="link"
                         minW={0}
-                    >
-                        <ChevronLeftIcon boxSize={9} />
-                    </Button>
-
+                    />
                     <Progress
                         value={percentage(activeItem, positions.length - constraint)}
                         alignSelf="center"
@@ -246,24 +265,25 @@ const Slider = ({
                         bg="base.d100"
                         flex={1}
                         h="3px"
+                        backgroundColor='#EEE'
                         sx={{
                             "> div": {
                                 backgroundColor: "colors.900"
                             }
                         }}
                     />
-
-                    <Button
+                    <IconButton
+                        aria-label='view more cards on the left'
+                        icon={<IoMdArrowForward size='25px' />}
                         onClick={handleIncrementClick}
                         onFocus={handleFocus}
                         ml={`${gap / 3}px`}
-                        color="gray.200"
-                        variant="link"
-                        zIndex={2}
+                        color='colors.800'
+                        backgroundColor='colors.900'
+                        boxSize='35px'
+                        variant='link'
                         minW={0}
-                    >
-                        <ChevronRightIcon boxSize={9} />
-                    </Button>
+                    />
                 </Flex>
             </Stack>
         </>
@@ -341,7 +361,10 @@ const Track = ({
     const handleResize = useCallback(
         () =>
             controls.start({
-                x: positions[activeItem],
+                x: positions[
+                    activeItem >= positions.length - constraint ?
+                        positions.length - constraint : activeItem
+                ],
                 transition: {
                     ...transitionProps
                 }
@@ -381,7 +404,6 @@ const Track = ({
     );
 
     useEffect(() => {
-        // handleResize(positions);
         handleResize()
 
         document.addEventListener("keydown", handleKeyDown);

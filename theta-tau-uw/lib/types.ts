@@ -264,3 +264,16 @@ export interface DraggableInfo {
         y: number
     }
 }
+
+export interface CardProps {
+    title: string
+    description: string
+    button: {
+        title: string
+        link: string
+    }
+    image: {
+        alt: string
+        url: string
+    }
+}

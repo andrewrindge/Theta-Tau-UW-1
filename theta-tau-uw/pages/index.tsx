@@ -1,14 +1,13 @@
 import { Stack, Text } from "@chakra-ui/react";
 import Layout from "../components/utils/Layout";
 import getNavItems, { getNavImages } from "../lib/getNavItems";
-import { ContentSliderProps, LargeInformationBannerTestProps, FinalLogoProps, FinalNavEntryItems, LargeBannerProps, SocialMediaLinks } from "../lib/types";
-// import ContentSlider from '../components/content/ContentSlider'
+import { ContentSliderProps, LargeInformationBannerTestProps, FinalLogoProps, FinalNavEntryItems, LargeBannerProps, SocialMediaLinks, CardProps } from "../lib/types";
 import getContentSlider from "../lib/getContentSlider";
 import { getFooterImages } from "../lib/getFooterItems";
 import getSocialMediaLinks from "../lib/getSocialMediaLinks";
 import { getHomePage } from "../lib/getHomePage/getHomePage";
 import dynamic from 'next/dynamic'
-import LargeInformationBanner from "../components/ui/LargeInformationBanner";
+import LargeInformationBanner from "../components/ui/large-information-banner";
 import CardSlider from "../components/ui/card-slider";
 import Card from "../components/ui/card";
 
@@ -20,23 +19,29 @@ interface Props {
     contentSliderData: ContentSliderProps[]
     welcomeBanner: LargeBannerProps
     largeInfoBanner: LargeInformationBannerTestProps
+    sliderDeckCards: CardProps[]
 }
 
-export default function Home({ navData, logo, footerLogo, contentSliderData, socialMediaLinks, welcomeBanner, largeInfoBanner }: Props) {
+export default function Home(
+    {
+        navData,
+        logo,
+        footerLogo,
+        contentSliderData,
+        socialMediaLinks,
+        welcomeBanner,
+        largeInfoBanner,
+        sliderDeckCards
+    }: Props
+) {
     const ContentSlider = dynamic(() => import('../components/ui/news-carousel'))
     return (
         <Layout navData={navData} logo={logo} footerLogo={footerLogo} socialMediaLinks={socialMediaLinks} index={0}>
             <ContentSlider data={contentSliderData} />
             <CardSlider gap={32}>
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                {sliderDeckCards.map((entry, index) => (
+                    <Card data={entry} key={index} />
+                ))}
             </CardSlider>
             <LargeInformationBanner data={largeInfoBanner} />
         </Layout >
@@ -49,9 +54,10 @@ export async function getStaticProps() {
     const footerLogo = await getFooterImages()
     const socialMediaLinks = await getSocialMediaLinks()
 
-    const { getContentSlider, getLargeInformationBanner } = getHomePage()
+    const { getContentSlider, getLargeInformationBanner, getSliderDeckCards } = getHomePage()
     const contentSlider = await getContentSlider()
     const largeInfoBanner = (await getLargeInformationBanner()) as LargeInformationBannerTestProps
+    const sliderDeckCards = (await getSliderDeckCards()) as CardProps[]
 
     const welcomeBanner = {
         title: 'Welcome To The Club',
@@ -83,7 +89,8 @@ export async function getStaticProps() {
         socialMediaLinks: socialMediaLinks,
         contentSliderData: contentSlider,
         welcomeBanner: welcomeBanner,
-        largeInfoBanner: largeInfoBanner
+        largeInfoBanner: largeInfoBanner,
+        sliderDeckCards: sliderDeckCards
     }
     return { props }
 }

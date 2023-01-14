@@ -15,7 +15,8 @@ export default function LargeInformationBanner({ data }: Props) {
             width='100%'
             padding='25px'
             paddingTop='100px'
-            backgroundColor='colors.200'
+            backgroundColor='colors.900'
+            color='colors.800'
             alignItems='center'
         >
             <Stack
@@ -45,9 +46,13 @@ export default function LargeInformationBanner({ data }: Props) {
                         <Button
                             fontSize={{ base: '15px', md: '18px' }}
                             padding='20px'
-                            backgroundColor='#FFF'
-                            border='1px solid #000'
+                            backgroundColor='colors.900'
+                            border='1px solid #EDEAB5'
                             borderRadius='10px'
+                            _hover={{
+                                backgroundColor: 'colors.800',
+                                color: 'colors.900'
+                            }}
                             width='fit-content'
                             onClick={() => router.push(data.button?.link as string)}
                         >

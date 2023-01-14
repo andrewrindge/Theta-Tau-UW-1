@@ -1,20 +1,29 @@
 import { Stack, Text, Image, Button } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { CardProps } from "../../lib/types";
 
-export default function Card() {
+interface Props {
+    data: CardProps
+}
+
+export default function Card({ data }: Props) {
+    const router = useRouter()
     return (
-        <Stack width='100%' height='500px'>
-            <Stack border='1px solid #000' width='100%' height='100%'>
+        <Stack width='100%' height='fit-content' padding='10px'>
+            <Stack border='1px solid #8F8F8F' width='100%' height='100%' borderRadius='10px'>
                 <Image
-                    src='https://i.ibb.co/LZZ4DmD/momomomomo-1.jpg'
-                    alt='momo'
+                    src={data.image.url}
+                    alt={data.image.alt}
                     objectFit='cover'
+                    borderTopLeftRadius='10px'
+                    borderTopRightRadius='10px'
                 />
                 <Stack padding='10px'>
-                    <Text fontSize='22px' fontWeight={600}>Lorem Ipsum</Text>
-                    <Text noOfLines={4}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores et voluptas sed placeat magni quam asperiores vitae nulla cupiditate. Ratione maiores vitae velit in id delectus, sunt dolore, officiis obcaecati perspiciatis aspernatur! Fugiat, nisi incidunt?</Text>
+                    <Text fontSize='22px' fontWeight={600}>{data.title}</Text>
+                    <Text noOfLines={4}>{data.description}</Text>
                 </Stack>
                 <Stack padding='5px 15px' alignItems='flex-end'>
-                    <Button width='fit-content'>See More</Button>
+                    <Button width='fit-content' onClick={() => router.push(data.button.link)}>{data.button.title}</Button>
                 </Stack>
             </Stack>
         </Stack>
