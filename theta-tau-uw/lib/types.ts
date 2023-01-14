@@ -229,3 +229,51 @@ export interface LargeBannerProps {
     image: Image
     reverse: boolean
 }
+
+export interface LargeInformationBannerTestProps {
+    title: string
+    description: string
+    button: {
+        title: string
+        link: string
+    }
+    image: {
+        alt: string
+        src: string
+    }
+}
+
+export interface BoundingRect {
+    width: number;
+    height: number;
+    top: number;
+    left: number;
+    x: number;
+    y: number;
+    right: number;
+    bottom: number;
+}
+
+export interface DraggableInfo {
+    offset: {
+        x: number
+        y: number
+    }
+    velocity: {
+        x: number
+        y: number
+    }
+}
+
+export interface CardProps {
+    title: string
+    description: string
+    button: {
+        title: string
+        link: string
+    }
+    image: {
+        alt: string
+        url: string
+    }
+}
