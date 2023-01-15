@@ -54,24 +54,26 @@ export default function Navbar({ navData, logo, index }: Props) {
             >
                 <HStack width='100%' alignItems='flex-end'>
                     <Link href='/'>
-                        <Stack
-                            width={{ base: '80px', md: '75px' }}
-                            marginLeft={{ base: '10px', md: '5px', lg: '20px' }}
-                            marginRight={{ base: '15px', md: '5px', lg: '35px' }}
-                            onMouseEnter={(event) => {
-                                handleEvent(event, '-2')
-                            }}
-                            onMouseLeave={(event) => {
-                                handleEvent(event, '2')
-                            }}
-                            paddingTop={{ base: '12px', sm: '0px' }}
-                        >
-                            <Image
-                                src={logo.src}
-                                alt={logo.alt}
-                                borderRadius={{ base: '4px', md: '10px' }}
-                            />
-                        </Stack>
+                        <a href="">
+                            <Stack
+                                width={{ base: '80px', md: '75px' }}
+                                marginLeft={{ base: '10px', md: '5px', lg: '20px' }}
+                                marginRight={{ base: '15px', md: '5px', lg: '35px' }}
+                                onMouseEnter={(event) => {
+                                    handleEvent(event, '-2')
+                                }}
+                                onMouseLeave={(event) => {
+                                    handleEvent(event, '2')
+                                }}
+                                paddingTop={{ base: '12px', sm: '0px' }}
+                            >
+                                <Image
+                                    src={logo.src}
+                                    alt={logo.alt}
+                                    borderRadius={{ base: '4px', md: '10px' }}
+                                />
+                            </Stack>
+                        </a>
                     </Link>
                     <Stack
                         width='100%'
@@ -104,25 +106,27 @@ export default function Navbar({ navData, logo, index }: Props) {
                             {navContent.map((entry, currentIndex) => {
                                 return (
                                     <Link href={`${navData[index].url}`} key={currentIndex}>
-                                        <Stack
-                                            textAlign={{ base: 'left', md: 'center' }}
-                                            padding={{ md: '3px', lg: '5px' }}
-                                            borderBottom={currentIndex === index ? '3px solid #EDEAB5' : '3px solid #8B0000'}
-                                            _hover={{
-                                                backgroundColor: 'colors.200',
-                                                color: 'colors.300'
-                                            }}
-                                            borderRadius='3px'
-                                            color='colors.800'
-                                            onMouseEnter={(event) => {
-                                                handleEvent(event, '-1')
-                                            }}
-                                            onMouseLeave={(event) => {
-                                                handleEvent(event, '1')
-                                            }}
-                                        >
-                                            {entry}
-                                        </Stack>
+                                        <a href="">
+                                            <Stack
+                                                textAlign={{ base: 'left', md: 'center' }}
+                                                padding={{ md: '3px', lg: '5px' }}
+                                                borderBottom={currentIndex === index ? '3px solid #EDEAB5' : '3px solid #8B0000'}
+                                                _hover={{
+                                                    backgroundColor: 'colors.200',
+                                                    color: 'colors.300'
+                                                }}
+                                                borderRadius='3px'
+                                                color='colors.800'
+                                                onMouseEnter={(event) => {
+                                                    handleEvent(event, '-1')
+                                                }}
+                                                onMouseLeave={(event) => {
+                                                    handleEvent(event, '1')
+                                                }}
+                                            >
+                                                {entry}
+                                            </Stack>
+                                        </a>
                                     </Link>
                                 )
                             })}

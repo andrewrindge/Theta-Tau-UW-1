@@ -6,19 +6,16 @@
 import {
     IconButton,
     Stack,
-    Text,
     Flex,
     Box,
     VStack,
     Progress,
     useMediaQuery,
     Button,
-    HStack,
 } from '@chakra-ui/react';
 import { IoMdArrowBack, IoMdArrowForward } from 'react-icons/io';
 import { DraggableInfo } from '../../lib/types';
 import {
-    useLayoutEffect,
     useCallback,
     useEffect,
     useState,
@@ -32,6 +29,8 @@ import {
 import useBoundingRect from '../../lib/hooks/useBoundingRect';
 import percentage from '../../lib/utils/percentage';
 import { motion, useAnimation, useMotionValue } from 'framer-motion';
+import TitleDivider from './title-divider';
+import { useRouter } from 'next/router';
 
 const MotionFlex = motion(Flex)
 
@@ -122,38 +121,22 @@ export default function CardSlider({ children, gap }: Props) {
         positions,
         gap
     };
+
+    const router = useRouter()
+
     return (
         <Stack width='100%' alignItems='center' padding='60px 0px' gap='25px'>
-            <HStack
-                width='93%'
-                justifyContent='space-between'
-                borderBottom={{ base: '3px solid #8B0000', md: '5px solid #8B0000' }}
-            >
-                <Stack
-                    transform='skew(5deg)'
-                    width='fit-content'
-                    backgroundColor='colors.900'
-                    borderRadius='10px'
-                    boxShadow={{
-                        base: '3px 3px 0px 2px #EDEAB5',
-                        md: '5px 5px 0px 5px #EDEAB5'
-                    }}
-                    padding='10px 45px'
-                    marginLeft='-20px'
-                >
-                    <Text
-                        fontSize={{ base: '18px', md: '32px', lg: '36px' }}
-                        fontWeight={700}
-                        transform='skew(-20deg)'
-                        color='colors.100'
+            <TitleDivider
+                title={'See What\'s New'}
+                render={
+                    <Button
+                        onClick={() => router.push('/')}
+                        fontSize={{ base: '13px', md: '16px' }}
                     >
-                        See What&apos;s New
-                    </Text>
-                </Stack>
-                <Stack>
-                    <Button fontSize={{ base: '13px', md: '16px' }}>See all Events</Button>
-                </Stack>
-            </HStack>
+                        See all Events
+                    </Button>
+                }
+            />
             <Stack width='85%'>
                 <Stack>
                     <Slider {...sliderProps}>
@@ -196,7 +179,7 @@ const Slider = ({
     const [ref, { width }] = useBoundingRect();
 
 
-    useLayoutEffect(() => initSliderWidth(Math.round(width)), [
+    useEffect(() => initSliderWidth(Math.round(width)), [
         width,
         initSliderWidth
     ]);

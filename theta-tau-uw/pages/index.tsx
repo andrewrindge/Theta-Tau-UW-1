@@ -10,6 +10,7 @@ import dynamic from 'next/dynamic'
 import LargeInformationBanner from "../components/ui/large-information-banner";
 import CardSlider from "../components/ui/card-slider";
 import Card from "../components/ui/card";
+import CommitteeGrid from "../components/ui/committee-grid";
 
 interface Props {
     navData: FinalNavEntryItems[]
@@ -44,6 +45,7 @@ export default function Home(
                 ))}
             </CardSlider>
             <LargeInformationBanner data={largeInfoBanner} />
+            <CommitteeGrid />
         </Layout >
     )
 }

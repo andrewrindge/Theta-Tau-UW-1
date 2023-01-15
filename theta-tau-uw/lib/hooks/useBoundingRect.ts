@@ -1,4 +1,4 @@
-import { useState, useCallback, useLayoutEffect } from "react";
+import { useState, useCallback, useLayoutEffect, useEffect } from "react";
 import { BoundingRect } from "../types";
 
 const debounce = (limit: number, callback: () => void) => {
@@ -43,7 +43,7 @@ export default function useBoundingRect(limit: number | null = null):
         setNode(node);
     }, []);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if ("undefined" !== typeof window && node) {
             const measure = () =>
                 window.requestAnimationFrame(() =>
