@@ -1,5 +1,5 @@
 import { ContentSliderProps } from "../../lib/types";
-import { HStack, Stack, Text, IconButton, Icon, Grid, GridItem, Show, Hide, } from "@chakra-ui/react";
+import { HStack, Stack, Text, IconButton, Icon, Grid, GridItem, Show } from "@chakra-ui/react";
 import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
 import { BsChevronDoubleRight } from 'react-icons/bs'
 import { TouchEvent, useEffect, useState } from "react";
@@ -88,7 +88,7 @@ export default function ContentSlider({ data }: Props) {
                 <Stack width='100%' direction={{ base: 'column', md: 'row' }}>
                     <Stack
                         width='100%'
-                        height={{ base: '400px', sm: '450px', md: '600px' }}
+                        height={{ base: '380px', sm: '425px', md: '500px' }}
                         alignItems='flex-start'
                         justifyContent='flex-end'
                         overflow='hidden'
@@ -106,8 +106,8 @@ export default function ContentSlider({ data }: Props) {
                         onTouchMove={handleTouchMove}
                         borderRadius='5px'
                     >
-                        <HStack width='100%' justifyContent='space-between' position='absolute' top={{ base: '0%', sm: '30%', md: '40%', lg: '45%' }}>
-                            <Stack padding='25px' onClick={() => previous()}>
+                        <HStack width='100%' justifyContent='space-between' position='absolute' top='51%'>
+                            <Stack padding={{ base: '5px', sm: '10px', md: '20px' }}>
                                 <IconButton
                                     icon={<IoMdArrowBack color="#EDEAB5" size='20px' />}
                                     backgroundColor='colors.900'
@@ -116,7 +116,7 @@ export default function ContentSlider({ data }: Props) {
                                     onClick={() => previous()}
                                 />
                             </Stack>
-                            <Stack padding='25px'>
+                            <Stack padding={{ base: '5px', sm: '10px', md: '20px' }}>
                                 <IconButton
                                     icon={<IoMdArrowForward color="#EDEAB5" size='20px' />}
                                     _hover={{ backgroundColor: '#2B2B2B' }}
@@ -126,44 +126,46 @@ export default function ContentSlider({ data }: Props) {
                                 />
                             </Stack>
                         </HStack>
-                        <Stack
-                            color='#F8F8F8'
-                            padding='15px'
-                            width='100%'
-                            onMouseEnter={(event) => {
-                                event.currentTarget.style.paddingBottom = '20px'
-                                event.currentTarget.style.transition = '0.6s'
-                                event.currentTarget.style.cursor = 'pointer'
-                            }}
-                            onMouseLeave={(event) => {
-                                event.currentTarget.style.paddingBottom = '15px'
-                                event.currentTarget.style.transition = '0.6s'
-                            }}
-                            onClick={() => {
-                                router.push('/')
-                            }}
-                        >
-                            <Text fontWeight={800} fontSize={{ base: '26px', md: '35px' }}>
-                                {carouselItems[index].title}
-                            </Text>
-                            <Text
-                                fontWeight={500}
-                                fontSize={{ base: '12px', md: '15px' }}
-                                width='75%'
-                                dangerouslySetInnerHTML={{ __html: htmlDescription[index] }}
-                            />
-                            {carouselItems[index].button.map((button, index) => {
-                                return (
-                                    <Link key={index} href={button.link}>
-                                        <HStack>
-                                            <Text fontWeight={700} fontSize={{ base: '12px', md: '15px' }} textDecoration='underline' justifySelf=''>
-                                                {button.title}
-                                            </Text>
-                                            <Icon as={BsChevronDoubleRight} />
-                                        </HStack>
-                                    </Link>
-                                )
-                            })}
+                        <Stack alignItems='center'>
+                            <Stack
+                                color='#F8F8F8'
+                                padding='15px'
+                                width={{ base: '70%', sm: '75%', md: '80%', lg: '85%' }}
+                                onMouseEnter={(event) => {
+                                    event.currentTarget.style.paddingBottom = '20px'
+                                    event.currentTarget.style.transition = '0.6s'
+                                    event.currentTarget.style.cursor = 'pointer'
+                                }}
+                                onMouseLeave={(event) => {
+                                    event.currentTarget.style.paddingBottom = '15px'
+                                    event.currentTarget.style.transition = '0.6s'
+                                }}
+                                onClick={() => {
+                                    router.push('/')
+                                }}
+                            >
+                                <Text fontWeight={800} fontSize={{ base: '22px', sm: '26px', md: '35px' }}>
+                                    {carouselItems[index].title}
+                                </Text>
+                                <Text
+                                    fontWeight={500}
+                                    fontSize={{ base: '13px', sm: '14px', md: '15px' }}
+                                    noOfLines={[7, 6, 5, 15]}
+                                    width='75%'
+                                    dangerouslySetInnerHTML={{ __html: htmlDescription[index] }}
+                                />
+                                {carouselItems[index].button.map((button, index) => {
+                                    return (
+                                        <Link key={index} href={button.link}>
+                                            <HStack>
+                                                <Text fontWeight={700} fontSize={{ base: '12px', md: '15px' }} textDecoration='underline' justifySelf=''>
+                                                    {button.title}
+                                                </Text>
+                                            </HStack>
+                                        </Link>
+                                    )
+                                })}
+                            </Stack>
                         </Stack>
                         <HStack width='100%' justifyContent='center' paddingBottom='20px'>
                             {data.map((_, idx) => {
@@ -174,22 +176,26 @@ export default function ContentSlider({ data }: Props) {
                         </HStack>
                     </Stack>
                     <Show above='md'>
-                        <Stack width={{ base: '100%', sm: '45%', md: '30%' }} height={{ base: '250px', sm: '600px' }} justifyContent='flex-end'>
+                        <Stack width={{ base: '100%', sm: '45%', md: '30%' }} height={{ base: '250px', sm: '500px' }} justifyContent='flex-end'>
                             <Grid templateColumns={{ base: 'repeat(4, 1fr)', sm: '1fr' }} height='600px' paddingTop='20px' alignItems='center'>
                                 {carouselItems.map((entry, idx) => {
                                     return (
                                         <GridItem
                                             key={idx}
-                                            borderRight={index === idx ? '5px solid #8B0000' : 'none'}
-                                            textAlign='right'
-                                            paddingRight={index === idx ? '10px' : '15px'}
+
+                                            padding='15px'
+                                            transition='0.3s'
+                                            bgColor={index === idx ? '#8B0000' : '#F8F8F8'}
+                                            color={index === idx ? '#FFF' : '#000'}
+                                            height='100%'
                                             onMouseEnter={(event) => {
                                                 event.currentTarget.style.cursor = 'pointer'
                                             }}
                                             onClick={() => {
                                                 setIndex(idx)
                                             }}
-                                            alignItems='space-around'
+                                            alignItems='center'
+                                            borderBottom='2px solid #DDD'
                                         >
                                             <Text fontSize='12px' fontWeight={900}>
                                                 {entry.title.toUpperCase()}
@@ -200,7 +206,6 @@ export default function ContentSlider({ data }: Props) {
                                                 fontWeight={600}
                                                 dangerouslySetInnerHTML={{ __html: htmlDescription[index] }}
                                             />
-                                            <Stack borderBottom='2px solid #DDD' paddingTop='15px' />
                                         </GridItem>
                                     )
                                 })}
@@ -243,7 +248,7 @@ export default function ContentSlider({ data }: Props) {
                         </Stack>
                     </Show>
                 </Stack>
-            </Stack>
-        </MarginStack>
+            </Stack >
+        </MarginStack >
     )
 }

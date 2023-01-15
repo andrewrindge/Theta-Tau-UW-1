@@ -6,17 +6,16 @@
 import {
     IconButton,
     Stack,
-    Text,
     Flex,
     Box,
     VStack,
     Progress,
     useMediaQuery,
+    Button,
 } from '@chakra-ui/react';
 import { IoMdArrowBack, IoMdArrowForward } from 'react-icons/io';
 import { DraggableInfo } from '../../lib/types';
 import {
-    useLayoutEffect,
     useCallback,
     useEffect,
     useState,
@@ -30,6 +29,8 @@ import {
 import useBoundingRect from '../../lib/hooks/useBoundingRect';
 import percentage from '../../lib/utils/percentage';
 import { motion, useAnimation, useMotionValue } from 'framer-motion';
+import TitleDivider from './title-divider';
+import { useRouter } from 'next/router';
 
 const MotionFlex = motion(Flex)
 
@@ -120,24 +121,22 @@ export default function CardSlider({ children, gap }: Props) {
         positions,
         gap
     };
+
+    const router = useRouter()
+
     return (
-        <Stack width='100%' alignItems='center' padding='40px 0px' gap='40px'>
-            <Stack
-                transform='skew(-20deg)'
-                backgroundColor='colors.900'
-                padding='10px'
-                borderRadius='10px'
-                boxShadow='-5px 5px 0px 5px #EDEAB5'
-            >
-                <Text
-                    fontSize={{ base: '28px', md: '36px', lg: '48px' }}
-                    fontWeight={700}
-                    transform='skew(5deg)'
-                    color='colors.100'
-                >
-                    See What&apos;s New
-                </Text>
-            </Stack>
+        <Stack width='100%' alignItems='center' padding='60px 0px' gap='25px'>
+            <TitleDivider
+                title={'See What\'s New'}
+                render={
+                    <Button
+                        onClick={() => router.push('/')}
+                        fontSize={{ base: '13px', md: '16px' }}
+                    >
+                        See all Events
+                    </Button>
+                }
+            />
             <Stack width='85%'>
                 <Stack>
                     <Slider {...sliderProps}>
@@ -180,7 +179,7 @@ const Slider = ({
     const [ref, { width }] = useBoundingRect();
 
 
-    useLayoutEffect(() => initSliderWidth(Math.round(width)), [
+    useEffect(() => initSliderWidth(Math.round(width)), [
         width,
         initSliderWidth
     ]);
