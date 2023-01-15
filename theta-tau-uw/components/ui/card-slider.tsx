@@ -12,6 +12,8 @@ import {
     VStack,
     Progress,
     useMediaQuery,
+    Button,
+    HStack,
 } from '@chakra-ui/react';
 import { IoMdArrowBack, IoMdArrowForward } from 'react-icons/io';
 import { DraggableInfo } from '../../lib/types';
@@ -121,23 +123,37 @@ export default function CardSlider({ children, gap }: Props) {
         gap
     };
     return (
-        <Stack width='100%' alignItems='center' padding='40px 0px' gap='40px'>
-            <Stack
-                transform='skew(-20deg)'
-                backgroundColor='colors.900'
-                padding='10px'
-                borderRadius='10px'
-                boxShadow='-5px 5px 0px 5px #EDEAB5'
+        <Stack width='100%' alignItems='center' padding='60px 0px' gap='25px'>
+            <HStack
+                width='93%'
+                justifyContent='space-between'
+                borderBottom={{ base: '3px solid #8B0000', md: '5px solid #8B0000' }}
             >
-                <Text
-                    fontSize={{ base: '28px', md: '36px', lg: '48px' }}
-                    fontWeight={700}
+                <Stack
                     transform='skew(5deg)'
-                    color='colors.100'
+                    width='fit-content'
+                    backgroundColor='colors.900'
+                    borderRadius='10px'
+                    boxShadow={{
+                        base: '3px 3px 0px 2px #EDEAB5',
+                        md: '5px 5px 0px 5px #EDEAB5'
+                    }}
+                    padding='10px 45px'
+                    marginLeft='-20px'
                 >
-                    See What&apos;s New
-                </Text>
-            </Stack>
+                    <Text
+                        fontSize={{ base: '18px', md: '32px', lg: '36px' }}
+                        fontWeight={700}
+                        transform='skew(-20deg)'
+                        color='colors.100'
+                    >
+                        See What&apos;s New
+                    </Text>
+                </Stack>
+                <Stack>
+                    <Button fontSize={{ base: '13px', md: '16px' }}>See all Events</Button>
+                </Stack>
+            </HStack>
             <Stack width='85%'>
                 <Stack>
                     <Slider {...sliderProps}>

@@ -38,18 +38,17 @@ export default function Navbar({ navData, logo, index }: Props) {
             <Text
                 key={entry.title}
                 fontWeight={700}
-                fontSize={{ sm: '16px', md: '12px', lg: '16px', xl: '18px' }}
+                fontSize={{ sm: '16px', md: '13px', lg: '15px' }}
                 letterSpacing='2px'
-                padding={{ base: '0px', md: currentIndex === index ? '0px 0px' : '3px 0px' }}
             >
                 {entry.title.toUpperCase()}
-            </Text>
+            </Text >
         )
     })
     return (
         <Stack width='100%' alignItems='center' backgroundColor='colors.900'>
             <HStack
-                height={{ base: '100px', sm: '120px' }}
+                height={{ base: '100px', sm: '90px' }}
                 paddingRight='5px'
                 width='100%'
             >
@@ -107,22 +106,19 @@ export default function Navbar({ navData, logo, index }: Props) {
                                     <Link href={`${navData[index].url}`} key={currentIndex}>
                                         <Stack
                                             textAlign={{ base: 'left', md: 'center' }}
-                                            padding='2px 5px'
-                                            borderBottom={{
-                                                base: '',
-                                                md: currentIndex === index ? '3px solid #EDEAB5' : '0px'
-                                            }}
-                                            borderRadius='3px'
+                                            padding={{ md: '3px', lg: '5px' }}
+                                            borderBottom={currentIndex === index ? '3px solid #EDEAB5' : '3px solid #8B0000'}
                                             _hover={{
                                                 backgroundColor: 'colors.200',
                                                 color: 'colors.300'
                                             }}
+                                            borderRadius='3px'
                                             color='colors.800'
                                             onMouseEnter={(event) => {
-                                                handleEvent(event, '-2')
+                                                handleEvent(event, '-1')
                                             }}
                                             onMouseLeave={(event) => {
-                                                handleEvent(event, '2')
+                                                handleEvent(event, '1')
                                             }}
                                         >
                                             {entry}
