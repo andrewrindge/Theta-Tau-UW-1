@@ -241,6 +241,7 @@ export interface LargeInformationBannerTestProps {
         alt: string
         src: string
     }
+    reverse: boolean
 }
 
 export interface BoundingRect {
@@ -286,5 +287,13 @@ export interface CommitteeGridProps {
         }
         title: string
         url: string
+    }
+}
+
+export interface ImageOverlayTextBox {
+    text: string[]
+    image: {
+        src: string
+        alt: string
     }
 }

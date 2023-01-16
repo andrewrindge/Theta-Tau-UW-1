@@ -5,7 +5,7 @@ import { HStack, Stack, Text, Spinner } from '@chakra-ui/react';
 
 export default function NotFound() {
     const router = useRouter()
-    const [timeLeft, setTimeLeft] = useState(5)
+    const [timeLeft, setTimeLeft] = useState(3)
     const [showSpinner, setShowSpinner] = useState(false)
 
     useEffect(() => {
@@ -31,9 +31,9 @@ export default function NotFound() {
     return (
         <Stack width='100%' height='100vh' justifyContent='center' alignItems='center' position='relative'>
             {showSpinner && (
-                <Stack position='absolute' top={0} bottom={0} left={0} right={0}>
+                <Stack position='absolute' top={0} bottom={0} left={0} right={0} backdropFilter='auto' backdropBrightness='30%' >
                     <Stack width='100%' height='100%' alignItems='center' justifyContent='center'>
-                        <Spinner />
+                        <Spinner thickness='5px' height='60px' width='60px' color='colors.200' />
                     </Stack>
                 </Stack>
             )}
