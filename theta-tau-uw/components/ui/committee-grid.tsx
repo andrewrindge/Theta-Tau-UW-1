@@ -36,8 +36,7 @@ export default function CommitteeGrid() {
                     gap='35px'
                 >
                     {temp.map((entry, index) => (
-
-                        <Link href='/about' legacyBehavior>
+                        <Link href='/about' key={index} legacyBehavior>
                             <a>
                                 <GridItem
                                     key={index}
