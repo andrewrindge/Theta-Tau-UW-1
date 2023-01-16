@@ -144,24 +144,26 @@ export default function ContentSlider({ data }: Props) {
                                     router.push('/')
                                 }}
                             >
-                                <Text fontWeight={800} fontSize={{ base: '22px', sm: '26px', md: '35px' }}>
+                                <Text fontWeight={800} fontSize={{ base: '22px', sm: '26px', md: '35px' }} noOfLines={2}>
                                     {carouselItems[index].title}
                                 </Text>
                                 <Text
                                     fontWeight={500}
                                     fontSize={{ base: '13px', sm: '14px', md: '15px' }}
-                                    noOfLines={[7, 6, 5, 15]}
+                                    noOfLines={[5, 6, 5, 15]}
                                     width='75%'
                                     dangerouslySetInnerHTML={{ __html: htmlDescription[index] }}
                                 />
                                 {carouselItems[index].button.map((button, index) => {
                                     return (
-                                        <Link key={index} href={button.link}>
-                                            <HStack>
-                                                <Text fontWeight={700} fontSize={{ base: '12px', md: '15px' }} textDecoration='underline' justifySelf=''>
-                                                    {button.title}
-                                                </Text>
-                                            </HStack>
+                                        <Link key={index} href={button.link} legacyBehavior>
+                                            <a>
+                                                <HStack>
+                                                    <Text fontWeight={700} fontSize={{ base: '12px', md: '15px' }} textDecoration='underline' justifySelf=''>
+                                                        {button.title}
+                                                    </Text>
+                                                </HStack>
+                                            </a>
                                         </Link>
                                     )
                                 })}
@@ -182,7 +184,6 @@ export default function ContentSlider({ data }: Props) {
                                     return (
                                         <GridItem
                                             key={idx}
-
                                             padding='15px'
                                             transition='0.3s'
                                             bgColor={index === idx ? '#8B0000' : '#F8F8F8'}
@@ -213,8 +214,8 @@ export default function ContentSlider({ data }: Props) {
                         </Stack>
                     </Show>
                     <Show below='md'>
-                        <Stack width={{ base: '100%', sm: '100%', md: '30%' }} height='115px' justifyContent='flex-end'>
-                            <Grid templateColumns={{ base: 'repeat(4, 1fr)', md: '1fr' }} alignItems='center'>
+                        <Stack width={{ base: '100%', md: '30%' }} height='125px' justifyContent='flex-end'>
+                            <Grid templateColumns={{ base: 'repeat(4, 1fr)', md: '1fr' }} alignItems='center' overflow='scroll'>
                                 {carouselItems.map((entry, idx) => {
                                     return (
                                         <GridItem

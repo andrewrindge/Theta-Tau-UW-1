@@ -21,6 +21,7 @@ interface Props {
     welcomeBanner: LargeBannerProps
     largeInfoBanner: LargeInformationBannerTestProps
     sliderDeckCards: CardProps[]
+    committeeGrid: any
 }
 
 export default function Home(
@@ -32,10 +33,12 @@ export default function Home(
         socialMediaLinks,
         welcomeBanner,
         largeInfoBanner,
-        sliderDeckCards
+        sliderDeckCards,
+        committeeGrid
     }: Props
 ) {
     const ContentSlider = dynamic(() => import('../components/ui/news-carousel'))
+
     return (
         <Layout navData={navData} logo={logo} footerLogo={footerLogo} socialMediaLinks={socialMediaLinks} index={0}>
             <ContentSlider data={contentSliderData} />
@@ -56,10 +59,11 @@ export async function getStaticProps() {
     const footerLogo = await getFooterImages()
     const socialMediaLinks = await getSocialMediaLinks()
 
-    const { getContentSlider, getLargeInformationBanner, getSliderDeckCards } = getHomePage()
+    const { getContentSlider, getLargeInformationBanner, getSliderDeckCards, getCommitteeGrid } = getHomePage()
     const contentSlider = await getContentSlider()
     const largeInfoBanner = (await getLargeInformationBanner()) as LargeInformationBannerTestProps
     const sliderDeckCards = (await getSliderDeckCards()) as CardProps[]
+    const committeeGrid = (await getCommitteeGrid()) as any
 
     const welcomeBanner = {
         title: 'Welcome To The Club',
@@ -92,7 +96,8 @@ export async function getStaticProps() {
         contentSliderData: contentSlider,
         welcomeBanner: welcomeBanner,
         largeInfoBanner: largeInfoBanner,
-        sliderDeckCards: sliderDeckCards
+        sliderDeckCards: sliderDeckCards,
+        committeeGrid: committeeGrid
     }
     return { props }
 }

@@ -4,17 +4,7 @@ import { useRouter } from "next/router";
 import TitleDivider from "./title-divider";
 
 export default function CommitteeGrid() {
-    /**
-     * Committees:
-     * 1. Philanthropy
-     * 2. Academic
-     * 3. Brotherhood
-     * 4. Marketing
-     * 5. Professional Development
-     * 6. Emerging Events
-     * 7. Fundraising
-     * 8. Rush
-     */
+
     const temp = [
         'Philanthropy',
         'Academic',
@@ -46,8 +36,9 @@ export default function CommitteeGrid() {
                     gap='35px'
                 >
                     {temp.map((entry, index) => (
-                        <Link href='/about' tabIndex={index} key={index}>
-                            <a href="">
+
+                        <Link href='/about' legacyBehavior>
+                            <a>
                                 <GridItem
                                     key={index}
                                     borderRadius='10px'
@@ -55,7 +46,7 @@ export default function CommitteeGrid() {
                                         backgroundColor: '#F8F6F9',
                                         cursor: 'pointer'
                                     }}
-                                    padding='35px'
+                                    padding={{ base: '10px', md: '20px', lg: '35px' }}
                                 >
                                     <VStack justifyContent='center' alignItems='center'>
                                         <Stack>
@@ -69,7 +60,13 @@ export default function CommitteeGrid() {
                                             />
                                         </Stack>
                                         <Stack padding='10px'>
-                                            <Text fontSize={{ base: '14px', md: '16px', lg: '18px' }} fontWeight={500}>{entry}</Text>
+                                            <Text
+                                                fontSize={{ base: '14px', md: '16px', lg: '18px' }}
+                                                fontWeight={500}
+                                                textAlign='center'
+                                            >
+                                                {entry}
+                                            </Text>
                                         </Stack>
                                     </VStack>
                                 </GridItem>

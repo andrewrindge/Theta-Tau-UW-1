@@ -277,3 +277,14 @@ export interface CardProps {
         url: string
     }
 }
+
+export interface CommitteeGridProps {
+    fields: {
+        image: {
+            alt: string
+            url: string
+        }
+        title: string
+        url: string
+    }
+}
