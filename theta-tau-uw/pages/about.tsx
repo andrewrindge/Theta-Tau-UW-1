@@ -4,6 +4,7 @@ import { FinalNavEntryItems, FinalLogoProps, ContentSliderResponse, SocialMediaL
 import getNavItems, { getNavImages } from '../lib/getNavItems'
 import { getFooterImages } from "../lib/getFooterItems";
 import getSocialMediaLinks from "../lib/getSocialMediaLinks";
+import ImageOverlayWithQuote from "../components/ui/image-overlay-with-quote";
 
 interface Props {
     navData: FinalNavEntryItems[]
@@ -18,7 +19,7 @@ export default function About({ navData, logo, footerLogo, socialMediaLinks }: P
         <Layout navData={navData} logo={logo} footerLogo={footerLogo} socialMediaLinks={socialMediaLinks} index={1}>
             <Stack>
                 <Text>
-                    Lorem ipsum dolor sit amet.
+                    <ImageOverlayWithQuote />
                 </Text>
             </Stack>
         </Layout>

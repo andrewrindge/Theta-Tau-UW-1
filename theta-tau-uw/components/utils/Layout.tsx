@@ -30,7 +30,6 @@ export default function Layout({ navData, logo, footerLogo, children, index, soc
                 <meta property="og:title" content="Theta Tau Theta Beta Chapter @ the University of Washington" />
                 <meta property="og:description" content="Welcome to the official Theta Tau Theta Beta Chapter website at the University of Washington" />
                 <meta property="og:image" content="https://example.com/image.jpg" />
-                <link rel="icon" href="../../public/favicon.ico" />
             </Head>
             <Navbar navData={navData} logo={logo} index={index} />
             {children}

@@ -1,4 +1,4 @@
-import { ContentSliderProps, Image, Button, CardProps } from '../types'
+import { ContentSliderProps, Image, Button, CardProps, CommitteeGridProps } from '../types'
 import { client } from '../useContentful/useContentful'
 
 interface ContentSlider {
@@ -151,5 +151,56 @@ export function getHomePage() {
             throw new Error(`Failed to get slider deck cards: ${error}`)
         }
     }
-    return { getContentSlider, getLargeInformationBanner, getSliderDeckCards }
+
+    const getCommitteeGrid = async () => {
+        try {
+            const rawData = (await client.getEntries({
+                content_type: 'committeeGrid',
+                include: 5,
+                select: 'fields',
+                'fields.slug': 'Home Page Committee Grid'
+            })).items[0].fields as {
+                profile: {
+                    fields: {
+                        image: {
+                            fields: {
+                                alt: string
+                                image: {
+                                    fields: {
+                                        file: {
+                                            url: string
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        title: string
+                        url: string
+                    }
+                }[]
+            }
+            const data = rawData.profile.map((entry) => {
+                return {
+                    fields: {
+                        image: {
+                            alt: entry.fields.image.fields.alt,
+                            url: 'https:' + entry.fields.image.fields.image.fields.file.url
+                        },
+                        title: entry.fields.title,
+                        url: entry.fields.url
+                    }
+                } as CommitteeGridProps
+            })
+            return data
+        } catch (error) {
+            throw new Error(`Failed to fetch committee grid: ${error}`)
+        }
+    }
+
+    return {
+        getContentSlider,
+        getLargeInformationBanner,
+        getSliderDeckCards,
+        getCommitteeGrid
+    }
 }

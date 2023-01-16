@@ -13,21 +13,24 @@ export default function TitleDivider({ title, render }: Props) {
             borderBottom={{ base: '3px solid #8B0000', md: '5px solid #8B0000' }}
         >
             <Stack
-                transform='skew(5deg)'
-                width='fit-content'
+                transform={{ base: '', sm: 'skew(5deg)' }}
+                width={{ base: '175px', sm: 'fit-content' }}
                 backgroundColor='colors.900'
-                borderRadius='10px'
+                borderRadius={{ base: '0px', sm: '10px' }}
+                borderTopRightRadius={{ base: '10px', sm: '' }}
+                borderBottomRightRadius={{ base: '5px', sm: '' }}
                 boxShadow={{
                     base: '3px 3px 0px 2px #EDEAB5',
                     md: '5px 5px 0px 5px #EDEAB5'
                 }}
-                padding='10px 45px'
+                padding={{ base: '5px', sm: '10px 45px' }}
                 marginLeft='-20px'
+                alignItems='center'
             >
                 <Text
                     fontSize={{ base: '18px', md: '32px', lg: '36px' }}
                     fontWeight={700}
-                    transform='skew(-20deg)'
+                    transform={{ base: '', sm: 'skew(-20deg)' }}
                     color='colors.100'
                 >
                     {title}
@@ -36,6 +39,6 @@ export default function TitleDivider({ title, render }: Props) {
             <Stack>
                 {render}
             </Stack>
-        </HStack>
+        </HStack >
     )
 }
