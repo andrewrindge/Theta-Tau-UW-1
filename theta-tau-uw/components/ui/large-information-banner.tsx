@@ -15,12 +15,12 @@ export default function LargeInformationBanner({ data }: Props) {
             width='100%'
             padding='25px'
             paddingTop='100px'
-            backgroundColor='colors.900'
-            color='colors.800'
+            backgroundColor={data.secondaryColor ? data.secondaryColor : 'colors.900'}
+            color={data.primaryColor ? data.primaryColor : 'colors.800'}
             alignItems='center'
         >
             <Stack
-                direction={{ base: 'column', md: 'row' }}
+                direction={{ base: 'column', md: data.reverse ? 'row-reverse' : 'row' }}
                 width={{ base: '100%', md: '85%' }}
             >
                 <Stack

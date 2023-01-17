@@ -233,7 +233,7 @@ export interface LargeBannerProps {
 export interface LargeInformationBannerTestProps {
     title: string
     description: string
-    button: {
+    button?: {
         title: string
         link: string
     }
@@ -242,6 +242,8 @@ export interface LargeInformationBannerTestProps {
         src: string
     }
     reverse: boolean
+    primaryColor?: string
+    secondaryColor?: string
 }
 
 export interface BoundingRect {
@@ -296,4 +298,11 @@ export interface ImageOverlayTextBox {
         src: string
         alt: string
     }
+}
+
+export interface StatsBar {
+    fields: {
+        number: number;
+        description: string;
+    };
 }
