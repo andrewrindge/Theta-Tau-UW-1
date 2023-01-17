@@ -1,4 +1,4 @@
-import { Image, ImageOverlayTextBox, LargeInformationBannerTestProps, StatsBarProps } from '../types';
+import { Image, ImageOverlayTextBox, LargeInformationBannerTestProps, StatsBarProps, WhereWeGoProps } from '../types';
 import { client } from '../useContentful/useContentful';
 
 export function getAboutPage() {
@@ -94,5 +94,50 @@ export function getAboutPage() {
         }
     }
 
-    return { getImageOverlayTextBox, getLargeInformationBanner, getStatsBar }
+    const getWhereWeGo = async () => {
+        try {
+            const rawData = (await client.getEntries({
+                content_type: 'whereWeGo',
+                include: 8,
+                select: 'fields',
+                'fields.slug': 'About Page Where We Go'
+            })).items[0] as {
+                fields: {
+                    company: {
+                        fields: {
+                            title: string
+                            jobPosition: string[]
+                            image: Image
+                        }
+                    }[]
+                    title: string
+                }
+            }
+
+            const data = {
+                title: rawData.fields.title,
+                companies: [
+                    ...rawData.fields.company.map((entry) => {
+                        return {
+                            title: entry.fields.title,
+                            jobPosition: [
+                                ...entry.fields.jobPosition.map((entry) => {
+                                    return entry
+                                })
+                            ],
+                            image: {
+                                alt: entry.fields.image.fields.alt,
+                                src: 'https:' + entry.fields.image.fields.image.fields.file.url
+                            }
+                        }
+                    })
+                ]
+            }
+            return data as WhereWeGoProps
+        } catch (error) {
+            throw new Error(`Failed to fetch where we go: ${error}`)
+        }
+    }
+
+    return { getImageOverlayTextBox, getLargeInformationBanner, getStatsBar, getWhereWeGo }
 }

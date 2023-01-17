@@ -308,3 +308,15 @@ export interface StatsBarProps {
         }
     }[]
 }
+
+export interface WhereWeGoProps {
+    title: string
+    companies: {
+        title: string
+        image: {
+            alt: string
+            src: string
+        }
+        jobPosition: string[]
+    }[]
+}
