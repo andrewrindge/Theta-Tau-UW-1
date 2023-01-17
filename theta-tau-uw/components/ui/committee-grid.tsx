@@ -1,9 +1,14 @@
 import { Grid, GridItem, Stack, VStack, Image, Text, Button } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { CommitteeGridProps } from "../../lib/types";
 import TitleDivider from "./title-divider";
 
-export default function CommitteeGrid() {
+interface Props {
+    data: CommitteeGridProps[]
+}
+
+export default function CommitteeGrid({ data }: Props) {
 
     const temp = [
         'Philanthropy',
@@ -35,8 +40,8 @@ export default function CommitteeGrid() {
                     templateColumns={{ base: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' }}
                     gap='35px'
                 >
-                    {temp.map((entry, index) => (
-                        <Link href='/about' key={index} legacyBehavior>
+                    {data.map((entry, index) => (
+                        <Link href={`/about?committees=${entry.fields.url}`} key={index} legacyBehavior>
                             <a>
                                 <GridItem
                                     key={index}
@@ -50,8 +55,8 @@ export default function CommitteeGrid() {
                                     <VStack justifyContent='center' alignItems='center'>
                                         <Stack>
                                             <Image
-                                                src='https://i.ibb.co/92C2BGF/IMG-4359.jpg'
-                                                alt='momo eat the lettuce'
+                                                src={entry.fields.image.url}
+                                                alt={entry.fields.image.alt}
                                                 objectFit='cover'
                                                 boxSize='150px'
                                                 borderRadius='full'
@@ -64,7 +69,7 @@ export default function CommitteeGrid() {
                                                 fontWeight={500}
                                                 textAlign='center'
                                             >
-                                                {entry}
+                                                {entry.fields.title}
                                             </Text>
                                         </Stack>
                                     </VStack>

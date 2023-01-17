@@ -1,37 +1,6 @@
 import { ContentSliderProps, Image, Button, CardProps, CommitteeGridProps } from '../types'
 import { client } from '../useContentful/useContentful'
 
-interface ContentSlider {
-    bannerItems: {
-        fields: {
-            backgroundImage: Image
-            title: string
-            button: {
-                fields: {
-                    title: string
-                    link: string
-                }
-            }[]
-            // description: RichTextContent
-            description: any
-        }
-    }[]
-}
-
-interface LargeInformationBanner {
-    fields: {
-        button: {
-            fields: {
-                link: string
-                title: string
-            }
-        }
-        description: string
-        title: string
-        image: Image
-    }
-}
-
 export function getHomePage() {
     const getContentSlider = async () => {
         try {
@@ -42,7 +11,21 @@ export function getHomePage() {
                     include: 2,
                     "fields.slug": "Home Page Content Slider"
                 })
-            ).items.map(entry => entry.fields) as ContentSlider[]
+            ).items.map(entry => entry.fields) as {
+                bannerItems: {
+                    fields: {
+                        backgroundImage: Image
+                        title: string
+                        button: {
+                            fields: {
+                                title: string
+                                link: string
+                            }
+                        }[]
+                        description: any
+                    }
+                }[]
+            }[]
 
             const data = rawData.map((entry) => {
                 return entry.bannerItems.map((bannerItem) => {
@@ -76,7 +59,19 @@ export function getHomePage() {
                 include: 5,
                 select: 'fields',
                 'fields.slug': 'Home Page Large Information Banner'
-            })).items as LargeInformationBanner[]
+            })).items as {
+                fields: {
+                    button: {
+                        fields: {
+                            link: string
+                            title: string
+                        }
+                    }
+                    description: string
+                    title: string
+                    image: Image
+                }
+            }[]
 
             const data = rawData.map((entry) => {
                 return {
@@ -89,10 +84,10 @@ export function getHomePage() {
                     image: {
                         src: 'https:' + entry.fields.image.fields.image.fields.file.url,
                         alt: entry.fields.image.fields.alt
-                    }
+                    },
+                    reverse: false
                 }
             })
-
             return data[0]
         } catch (error) {
             throw new Error(`Failed to get Large Information Banner: ${error}`)
@@ -116,18 +111,7 @@ export function getHomePage() {
                             link: string
                         }
                     }
-                    image: {
-                        fields: {
-                            alt: string
-                            image: {
-                                fields: {
-                                    file: {
-                                        url: string
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    image: Image
                 }
             }[]
 
@@ -162,18 +146,7 @@ export function getHomePage() {
             })).items[0].fields as {
                 profile: {
                     fields: {
-                        image: {
-                            fields: {
-                                alt: string
-                                image: {
-                                    fields: {
-                                        file: {
-                                            url: string
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        image: Image
                         title: string
                         url: string
                     }

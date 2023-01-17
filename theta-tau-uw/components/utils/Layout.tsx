@@ -2,7 +2,7 @@ import { Stack } from "@chakra-ui/react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { ReactNode } from "react";
-import usePageTitle from "../../lib/hooks/usePageTitle";
+import usePageTitle from '../../lib/hooks/usePageTitle'
 import { FinalNavEntryItems, FinalLogoProps, SocialMediaLinks } from "../../lib/types";
 import Head from "next/head";
 

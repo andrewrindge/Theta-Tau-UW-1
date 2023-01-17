@@ -233,7 +233,7 @@ export interface LargeBannerProps {
 export interface LargeInformationBannerTestProps {
     title: string
     description: string
-    button: {
+    button?: {
         title: string
         link: string
     }
@@ -241,6 +241,9 @@ export interface LargeInformationBannerTestProps {
         alt: string
         src: string
     }
+    reverse: boolean
+    primaryColor?: string
+    secondaryColor?: string
 }
 
 export interface BoundingRect {
@@ -287,4 +290,33 @@ export interface CommitteeGridProps {
         title: string
         url: string
     }
+}
+
+export interface ImageOverlayTextBox {
+    text: string[]
+    image: {
+        src: string
+        alt: string
+    }
+}
+
+export interface StatsBarProps {
+    stats: {
+        fields: {
+            number: number;
+            description: string;
+        }
+    }[]
+}
+
+export interface WhereWeGoProps {
+    title: string
+    companies: {
+        title: string
+        image: {
+            alt: string
+            src: string
+        }
+        jobPosition: string[]
+    }[]
 }

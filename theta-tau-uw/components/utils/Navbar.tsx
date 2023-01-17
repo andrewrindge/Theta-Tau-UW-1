@@ -105,7 +105,7 @@ export default function Navbar({ navData, logo, index }: Props) {
                         <HStack height='70px' alignItems='center'>
                             {navContent.map((entry, currentIndex) => {
                                 return (
-                                    <Link href={`${navData[index].url}`} key={currentIndex} legacyBehavior>
+                                    <Link href={`${navData[currentIndex].url}`} key={currentIndex} legacyBehavior>
                                         <a>
                                             <Stack
                                                 textAlign={{ base: 'left', md: 'center' }}
