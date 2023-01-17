@@ -33,7 +33,6 @@ export default function About({
     statsBar,
     whereWeGo
 }: Props) {
-    console.log(whereWeGo)
     return (
         <Layout navData={navData} logo={logo} footerLogo={footerLogo} socialMediaLinks={socialMediaLinks} index={1}>
             <ImageOverlayWithQuote data={imageOverlayTextBox} />
