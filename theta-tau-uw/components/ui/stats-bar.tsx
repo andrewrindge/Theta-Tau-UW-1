@@ -10,7 +10,7 @@ interface Props {
 export default function StatsBar({ data }: Props) {
     // const [{ width }] = useScreenSize() Bruh can window just be defined it's not that hard
     const [colSpan, setColSpan] = useState<ResponsiveValue<number | "auto">>('auto')
-    const [width, setWidth] = useState(0)
+    const [width, setWidth] = useState(768)
 
     useEffect(() => {
         window.addEventListener('resize', () => setWidth(window.innerWidth))
