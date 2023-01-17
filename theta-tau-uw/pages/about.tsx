@@ -8,7 +8,8 @@ import ImageOverlayWithQuote from "../components/ui/image-overlay-with-quote";
 import { getAboutPage } from "../lib/getPageContent/getAboutPage";
 import LargeInformationBanner from "../components/ui/large-information-banner";
 import StatsBar from "../components/ui/stats-bar";
-import WhereWeGo from "../components/tempData/where-we-go";
+import WhereWeGo from "../components/ui/where-we-go";
+import SocialMediaBanner from "../components/ui/social-media-banner";
 
 interface Props {
     navData: FinalNavEntryItems[]
@@ -41,6 +42,7 @@ export default function About({
             ))}
             <StatsBar data={statsBar} />
             <WhereWeGo data={whereWeGo} />
+            <SocialMediaBanner data={socialMediaLinks} />
         </Layout>
     )
 }
