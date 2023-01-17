@@ -300,9 +300,11 @@ export interface ImageOverlayTextBox {
     }
 }
 
-export interface StatsBar {
-    fields: {
-        number: number;
-        description: string;
-    };
+export interface StatsBarProps {
+    stats: {
+        fields: {
+            number: number;
+            description: string;
+        }
+    }[]
 }

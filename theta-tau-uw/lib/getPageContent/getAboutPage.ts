@@ -1,4 +1,4 @@
-import { Image, ImageOverlayTextBox, LargeInformationBannerTestProps, StatsBar } from '../types';
+import { Image, ImageOverlayTextBox, LargeInformationBannerTestProps, StatsBarProps } from '../types';
 import { client } from '../useContentful/useContentful';
 
 export function getAboutPage() {
@@ -83,7 +83,9 @@ export function getAboutPage() {
                 }
             }
 
-            const data = rawData.fields.stats as StatsBar[]
+            const data = {
+                stats: rawData.fields.stats
+            } as StatsBarProps
 
             return data
 

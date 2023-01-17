@@ -1,12 +1,13 @@
 import { Stack, Text } from "@chakra-ui/react";
 import Layout from "../components/utils/Layout";
-import { FinalNavEntryItems, FinalLogoProps, ContentSliderResponse, SocialMediaLinks, ImageOverlayTextBox, LargeInformationBannerTestProps, StatsBar } from "../lib/types";
+import { FinalNavEntryItems, FinalLogoProps, ContentSliderResponse, SocialMediaLinks, ImageOverlayTextBox, LargeInformationBannerTestProps, StatsBarProps } from "../lib/types";
 import getNavItems, { getNavImages } from '../lib/getNavItems'
 import { getFooterImages } from "../lib/getFooterItems";
 import getSocialMediaLinks from "../lib/getSocialMediaLinks";
 import ImageOverlayWithQuote from "../components/ui/image-overlay-with-quote";
 import { getAboutPage } from "../lib/getPageContent/getAboutPage";
 import LargeInformationBanner from "../components/ui/large-information-banner";
+import StatsBar from "../components/ui/stats-bar";
 
 interface Props {
     navData: FinalNavEntryItems[]
@@ -15,7 +16,7 @@ interface Props {
     socialMediaLinks: SocialMediaLinks[]
     imageOverlayTextBox: ImageOverlayTextBox
     largeInformationBanner: LargeInformationBannerTestProps[],
-    statsBar: StatsBar[]
+    statsBar: StatsBarProps
 }
 
 
@@ -35,6 +36,7 @@ export default function About({
             {largeInformationBanner.map((entry, index) => (
                 <LargeInformationBanner key={index} data={entry} />
             ))}
+            <StatsBar data={statsBar} />
         </Layout>
     )
 }
@@ -48,7 +50,7 @@ export async function getStaticProps() {
     const { getImageOverlayTextBox, getLargeInformationBanner, getStatsBar } = getAboutPage()
     const imageOverlayTextBox = (await getImageOverlayTextBox()) as ImageOverlayTextBox
     const largeInformationBanner = (await getLargeInformationBanner()) as LargeInformationBannerTestProps[]
-    const statsBar = (await getStatsBar()) as StatsBar[]
+    const statsBar = (await getStatsBar()) as StatsBarProps
 
     const props: Props = {
         navData: navItems,
