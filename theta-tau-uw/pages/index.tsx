@@ -29,30 +29,22 @@ interface Props {
     committeeGrid: CommitteeGridProps[]
 }
 
-export default function Home(
-    {
-        navData,
-        logo,
-        footerLogo,
-        contentSliderData,
-        socialMediaLinks,
-        largeInfoBanner,
-        sliderDeckCards,
-        committeeGrid
-    }: Props
-) {
+export default function Home({ ...props }: Props) {
     const ContentSlider = dynamic(() => import('../components/ui/news-carousel'))
 
+    const { navData, logo, footerLogo, socialMediaLinks } = props
+    const layoutProps = { navData, logo, footerLogo, socialMediaLinks }
+
     return (
-        <Layout navData={navData} logo={logo} footerLogo={footerLogo} socialMediaLinks={socialMediaLinks} index={0}>
-            <ContentSlider data={contentSliderData} />
+        <Layout {...layoutProps} index={0}>
+            <ContentSlider data={props.contentSliderData} />
             <CardSlider gap={32}>
-                {sliderDeckCards.map((entry, index) => (
+                {props.sliderDeckCards.map((entry, index) => (
                     <Card data={entry} key={index} />
                 ))}
             </CardSlider>
-            <LargeInformationBanner data={largeInfoBanner} />
-            <CommitteeGrid data={committeeGrid} />
+            <LargeInformationBanner data={props.largeInfoBanner} />
+            <CommitteeGrid data={props.committeeGrid} />
         </Layout >
     )
 }

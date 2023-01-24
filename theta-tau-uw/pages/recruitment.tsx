@@ -1,4 +1,5 @@
 import { Stack, Text } from "@chakra-ui/react";
+import FullWidthCarousel from "../components/ui/full-width-carousel";
 import Layout from "../components/utils/Layout";
 import { getFooterImages } from "../lib/getFooterItems";
 import getNavItems, { getNavImages } from "../lib/getNavItems";
@@ -12,14 +13,14 @@ interface Props {
     socialMediaLinks: SocialMediaLinks[]
 }
 
-export default function Recruitment({ navData, logo, footerLogo, socialMediaLinks }: Props) {
+export default function Recruitment({ ...props }: Props) {
+
+    const { navData, logo, footerLogo, socialMediaLinks } = props
+    const layoutProps = { navData, logo, footerLogo, socialMediaLinks }
+
     return (
-        <Layout navData={navData} logo={logo} footerLogo={footerLogo} socialMediaLinks={socialMediaLinks} index={2}>
-            <Stack>
-                <Text>
-                    Lorem ipsum dolor sit amet.
-                </Text>
-            </Stack>
+        <Layout {...layoutProps} index={2}>
+            <FullWidthCarousel />
         </Layout>
     )
 }

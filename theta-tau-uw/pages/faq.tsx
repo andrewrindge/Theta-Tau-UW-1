@@ -12,9 +12,13 @@ interface Props {
     socialMediaLinks: SocialMediaLinks[]
 }
 
-export default function FAQ({ navData, logo, footerLogo, socialMediaLinks }: Props) {
+export default function FAQ({ ...props }: Props) {
+
+    const { navData, logo, footerLogo, socialMediaLinks } = props
+    const layoutProps = { navData, logo, footerLogo, socialMediaLinks }
+
     return (
-        <Layout navData={navData} logo={logo} footerLogo={footerLogo} socialMediaLinks={socialMediaLinks} index={3}>
+        <Layout {...layoutProps} index={3}>
             <Stack>
                 <Text>
                     Lorem ipsum dolor sit amet.
