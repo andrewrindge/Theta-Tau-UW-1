@@ -1,4 +1,5 @@
 import { Stack, Text } from "@chakra-ui/react";
+import ContactForm from "../components/forms/contact-form";
 import Layout from "../components/utils/Layout";
 import { getFooterImages } from "../lib/getFooterItems";
 import getNavItems, { getNavImages } from "../lib/getNavItems";
@@ -19,11 +20,7 @@ export default function Contact({ ...props }: Props) {
 
     return (
         <Layout {...layoutProps} index={5}>
-            <Stack>
-                <Text>
-                    Lorem ipsum dolor sit amet.
-                </Text>
-            </Stack>
+            <ContactForm />
         </Layout>
     )
 }
