@@ -1,8 +1,8 @@
-import { Stack, Text } from "@chakra-ui/react";
 import FullWidthCarousel from "../components/ui/full-width-carousel";
 import Layout from "../components/utils/Layout";
 import { getFooterImages } from "../lib/getFooterItems";
 import getNavItems, { getNavImages } from "../lib/getNavItems";
+import { getRecruitmentPage } from "../lib/getPageContent/getRecruitmentPage";
 import getSocialMediaLinks from "../lib/getSocialMediaLinks";
 import { FinalNavEntryItems, FinalLogoProps, SocialMediaLinks } from '../lib/types'
 
@@ -11,6 +11,7 @@ interface Props {
     logo: FinalLogoProps
     footerLogo: FinalLogoProps
     socialMediaLinks: SocialMediaLinks[]
+    fullWidthCarousel: any
 }
 
 export default function Recruitment({ ...props }: Props) {
@@ -20,7 +21,7 @@ export default function Recruitment({ ...props }: Props) {
 
     return (
         <Layout {...layoutProps} index={2}>
-            <FullWidthCarousel />
+            <FullWidthCarousel data={props.fullWidthCarousel} />
         </Layout>
     )
 }
@@ -31,11 +32,16 @@ export async function getStaticProps() {
     const footerLogo = await getFooterImages()
     const socialMediaLinks = await getSocialMediaLinks()
 
+    const { getFullWidthCarousel } = await getRecruitmentPage()
+
+    const fullWidthCarousel = await getFullWidthCarousel()
+
     const props: Props = {
         navData: navItems,
         logo: navImage,
         footerLogo: footerLogo,
-        socialMediaLinks: socialMediaLinks
+        socialMediaLinks: socialMediaLinks,
+        fullWidthCarousel: fullWidthCarousel
     }
     return { props }
 }

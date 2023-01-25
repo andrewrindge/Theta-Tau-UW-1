@@ -320,3 +320,14 @@ export interface WhereWeGoProps {
         jobPosition: string[]
     }[]
 }
+
+export interface FullWidthCarouselProps {
+    fields: {
+        image: {
+            alt: string
+            src: string
+        }
+        title: string
+        description: string
+    }[]
+}

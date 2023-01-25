@@ -23,17 +23,18 @@ export function useAcademicQuarter() {
             if (quarterToMonth.fall.includes(`${month}`)) {
                 setQuarter(RushMessage.FALL)
             } else if (quarterToMonth.spring.includes(`${month}`)) {
-                console.log('SPRING!!')
                 setQuarter(RushMessage.SPRING)
             } else {
                 setQuarter(RushMessage.THANK_YOU_MESSAGE)
             }
         }
 
+        getCorrectQuarterAndYear()
+
         window.addEventListener('load', getCorrectQuarterAndYear)
 
         return () => window.removeEventListener('load', getCorrectQuarterAndYear)
-    })
+    }, [quarter])
 
     return [quarter]
 }
