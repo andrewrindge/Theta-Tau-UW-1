@@ -23,24 +23,19 @@ interface Props {
 }
 
 
-export default function About({
-    navData,
-    logo,
-    footerLogo,
-    socialMediaLinks,
-    imageOverlayTextBox,
-    largeInformationBanner,
-    statsBar,
-    whereWeGo
-}: Props) {
+export default function About({ ...props }: Props) {
+
+    const { navData, logo, footerLogo, socialMediaLinks } = props
+    const layoutProps = { navData, logo, footerLogo, socialMediaLinks }
+
     return (
-        <Layout navData={navData} logo={logo} footerLogo={footerLogo} socialMediaLinks={socialMediaLinks} index={1}>
-            <ImageOverlayWithQuote data={imageOverlayTextBox} />
-            {largeInformationBanner.map((entry, index) => (
+        <Layout {...layoutProps} index={1}>
+            <ImageOverlayWithQuote data={props.imageOverlayTextBox} />
+            {props.largeInformationBanner.map((entry, index) => (
                 <LargeInformationBanner key={index} data={entry} />
             ))}
-            <StatsBar data={statsBar} />
-            <WhereWeGo data={whereWeGo} />
+            <StatsBar data={props.statsBar} />
+            <WhereWeGo data={props.whereWeGo} />
             <SocialMediaBanner data={socialMediaLinks} />
         </Layout>
     )

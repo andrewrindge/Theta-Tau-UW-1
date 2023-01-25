@@ -1,4 +1,4 @@
-import { Stack, Text } from "@chakra-ui/react";
+import { Heading, Image, Stack } from "@chakra-ui/react";
 import Layout from "../components/utils/Layout";
 import { getFooterImages } from "../lib/getFooterItems";
 import getNavItems, { getNavImages } from "../lib/getNavItems";
@@ -12,14 +12,20 @@ interface Props {
     socialMediaLinks: SocialMediaLinks[]
 }
 
-export default function FAQ({ navData, logo, footerLogo, socialMediaLinks }: Props) {
+export default function FAQ({ ...props }: Props) {
+
+    const { navData, logo, footerLogo, socialMediaLinks } = props
+    const layoutProps = { navData, logo, footerLogo, socialMediaLinks }
+
     return (
-        <Layout navData={navData} logo={logo} footerLogo={footerLogo} socialMediaLinks={socialMediaLinks} index={3}>
-            <Stack>
-                <Text>
-                    Lorem ipsum dolor sit amet.
-                </Text>
+        <Layout {...layoutProps} index={3}>
+            <Stack width='100%' alignItems='center'>
+                <Heading>Something Bad Happened</Heading>
             </Stack>
+            <Image
+                src='https://i0.wp.com/daoudisamir.com/wp-content/uploads/2018/08/0.jpeg?resize=638%2C479&ssl=1'
+                alt='something bad happened'
+            />
         </Layout>
     )
 }

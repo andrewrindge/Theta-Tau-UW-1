@@ -1,4 +1,5 @@
 import { Stack, Text } from "@chakra-ui/react";
+import ContactForm from "../components/forms/contact-form";
 import Layout from "../components/utils/Layout";
 import { getFooterImages } from "../lib/getFooterItems";
 import getNavItems, { getNavImages } from "../lib/getNavItems";
@@ -12,14 +13,14 @@ interface Props {
     socialMediaLinks: SocialMediaLinks[]
 }
 
-export default function Contact({ navData, logo, footerLogo, socialMediaLinks }: Props) {
+export default function Contact({ ...props }: Props) {
+
+    const { navData, logo, footerLogo, socialMediaLinks } = props
+    const layoutProps = { navData, logo, footerLogo, socialMediaLinks }
+
     return (
-        <Layout navData={navData} logo={logo} footerLogo={footerLogo} socialMediaLinks={socialMediaLinks} index={5}>
-            <Stack>
-                <Text>
-                    Lorem ipsum dolor sit amet.
-                </Text>
-            </Stack>
+        <Layout {...layoutProps} index={5}>
+            <ContactForm />
         </Layout>
     )
 }
