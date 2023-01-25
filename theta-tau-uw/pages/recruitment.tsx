@@ -1,3 +1,6 @@
+import { Image, Stack } from "@chakra-ui/react";
+import InterestForm from "../components/forms/interest-form";
+import FAQ from "../components/ui/faq";
 import FullWidthCarousel from "../components/ui/full-width-carousel";
 import Layout from "../components/utils/Layout";
 import { getFooterImages } from "../lib/getFooterItems";
@@ -22,6 +25,17 @@ export default function Recruitment({ ...props }: Props) {
     return (
         <Layout {...layoutProps} index={2}>
             <FullWidthCarousel data={props.fullWidthCarousel} />
+            <FAQ />
+            <InterestForm />
+            <Stack width='100%' alignItems='center' paddingBottom='50px'>
+                <Image
+                    boxSize='800px'
+                    height='500px'
+                    objectFit='cover'
+                    src='https://images.ctfassets.net/6u84kk32236l/5pGTJ6rZkSMuaqj3n3OnJv/4b6122eab622033a5b530a83d41a9ca8/placeholder-picture-large-opt.png'
+                    alt='temporary placeholder image'
+                />
+            </Stack>
         </Layout>
     )
 }
