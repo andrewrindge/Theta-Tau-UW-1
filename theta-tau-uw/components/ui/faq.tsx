@@ -39,7 +39,7 @@ export default function FAQ() {
                 </Accordion>
                 <Stack color='#F8F8F8'>
                     <Text fontSize='16px' fontWeight={500}>
-                        Can't find your answers? Check out our {' '}
+                        Can&apos;t find your answers? Check out our {' '}
                         <em style={{ borderBottom: '1px solid #F8F8F8' }}>
                             <Link href='/faq'>
                                 FAQ Page
